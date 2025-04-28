@@ -1,0 +1,46 @@
+/* Fundo da página */
+.background {
+  min-height: 100vh;
+  background-color: #f5f6f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Container branco central */
+.main-container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+  overflow: hidden; /* Para o header azul ficar dentro certinho */
+}
+
+/* Header azul */
+.header {
+  background-color: #7223ee;
+  color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.header p {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.9rem;
+}
+
+/* Área do conteúdo (menu, etc) */
+/* Área do conteúdo (menu, etc) */
+.content {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
