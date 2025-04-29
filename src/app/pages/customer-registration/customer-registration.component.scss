@@ -1,11 +1,12 @@
 .flex {
   display: flex;
 }
+
 .flex.items-center.my-8 {
   display: flex;
-  justify-content: center; // Centraliza horizontalmente
-  width: 100%; // Garante que ocupe toda a largura
-  min-height: 100vh; // Opcional: se quiser ocupar toda a altura da viewport
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .container {
@@ -15,11 +16,11 @@
   padding: 0 16px;
   display: flex;
   flex-direction: column;
-
 }
 
-input, select {
-  width: 100%; // Garante que ocupe toda a largura disponível
+input, 
+select {
+  width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -37,7 +38,7 @@ input, select {
 }
 
 .custom-date-input {
-  width: 100%; // Garante que ocupe toda a largura disponível
+  width: 100%;
   
   input[type="date"] {
     width: 100%;
@@ -53,7 +54,7 @@ input, select {
 }
 
 form {
-  width: 100%; // Garante que o formulário ocupe toda a largura disponível
+  width: 100%;
 }
 
 .back-button {
@@ -75,7 +76,6 @@ form {
   }
 }
 
-
 .card {
   background-color: #f5f5f5;
   padding: 24px;
@@ -85,7 +85,6 @@ form {
   display: flex;
   flex-direction: column;
   gap: 24px;
-
 }
 
 .card-header {
@@ -103,36 +102,14 @@ form {
     color: #666;
     margin: 0;
   }
-
-  .card-description {
-    font-size: 14px;
-    color: #666;
-    margin: 0;
-  }
 }
+
 .card-content {
   display: flex;
   flex-direction: column;
   gap: 24px;
   margin-bottom: 24px;
   padding: 0 40px;
-  
-}
-.back-button {
-  padding: 8px 16px;
-  background: transparent;
-  border: none;
-  color: #666;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: color 0.3s;
-
-  &:hover {
-    color: #333;
-  }
 }
 
 .tabs {
@@ -193,39 +170,6 @@ label {
   font-weight: 500;
 }
 
-input, select {
-  width: 100%;
-  margin: auto;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: border-color 0.3s;
-
-  &:focus {
-    outline: none;
-    border-color: #000;
-  }
-
-  &::placeholder {
-    color: #999;
-  }
-}
-
-.custom-date-input {
-  input[type="date"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
-
-    &::-webkit-calendar-picker-indicator {
-      cursor: pointer;
-    }
-  }
-}
-
 button[type="submit"] {
   width: 100%;
   padding: 16px;
@@ -252,7 +196,6 @@ button[type="submit"] {
   }
 }
 
-// Mensagens de feedback
 .bg-red-100 {
   background-color: #fee2e2;
 }
