@@ -1,11 +1,10 @@
 <section class="account-management">
-  <!-- Header -->
+  <button class="back-button" (click)="goBack()">← Back to Main Menu</button>
   <div class="account-header">
     <h1>Account Management</h1>
     <p>Create accounts, make deposits and withdrawals</p>
   </div>
 
-  <!-- Tabs wrapper -->
   <div class="tabs-wrapper">
     <div class="tabs">
       <button
@@ -34,7 +33,6 @@
     </div>
   </div>
 
-  <!-- Se for CREATE -->
   <ng-container *ngIf="selectedTab === 'create'">
     <app-select-primary
       label="Select Customer"
@@ -51,7 +49,6 @@
     ></app-select-primary>
   </ng-container>
 
-  <!-- Se for DEPOSIT ou WITHDRAW -->
   <ng-container *ngIf="selectedTab === 'deposit' || selectedTab === 'withdraw'">
     <app-select-primary
       label="Select Customer"
@@ -77,7 +74,6 @@
     </div>
   </ng-container>
 
-  <!-- Botão de Submit (sempre aparece) -->
   <div class="submit-section">
     <button class="action-button" type="button" (click)="onSubmit()">
       {{ getActionButtonText() }}
