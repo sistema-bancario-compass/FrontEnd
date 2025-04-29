@@ -1,0 +1,16 @@
+<div class="select-primary">
+    <label [for]="name">{{ label }}</label>
+    <select
+      [id]="name"
+      [name]="name"
+      (ngModelChange)="onChange($event)"
+    >
+    @if (!value) {
+      <option [value]="''" disabled selected class="placeholder-option">
+        {{ placeholder }}
+      </option>
+    }
+    <ng-content></ng-content>
+  </select>
+  </div>
+  

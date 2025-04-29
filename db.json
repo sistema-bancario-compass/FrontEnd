@@ -1,0 +1,13 @@
+{
+    "customers": [
+      { "id": 1, "name": "Alice Johnson", "email": "alice@gmail.com", "birthday": "1990-01-01" },
+      { "id": 2, "name": "Bob Smith",  "email": "bod@gmail.com", "birthday": "2000-01-01" },
+      { "id": 3, "name": "Carlos Oliveira",  "email": "carlos@gmail.com", "birthday": "1998-01-01"  }
+    ],
+    "accounts": [
+      { "id": 1, "type": "Savings" },
+      { "id": 2, "type": "Checking" },
+      { "id": 3, "type": "Business" }
+    ]
+  }
+  

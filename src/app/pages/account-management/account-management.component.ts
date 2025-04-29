@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { InputPrimaryComponent } from '../../components/input-primary/input-primary.component';
+
 import { CommonModule } from '@angular/common'; // <-- Adiciona esta linha
+import { InputPrimaryComponent } from '../../components/ui/input-primary/input-primary.component';
 
 @Component({
   selector: 'app-account-management',
