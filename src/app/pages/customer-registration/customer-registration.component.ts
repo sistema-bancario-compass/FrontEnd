@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-// Interfaces
 interface Customer {
   id: string;
   name: string;
@@ -17,56 +16,68 @@ interface Message {
 
 @Component({
   selector: 'app-customer-registration',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './customer-registration.component.html',
-  styleUrls: ['./customer-registration.component.scss'],
-  standalone: true, // Adicione esta linha
-  imports: [
-    CommonModule,
-    FormsModule
-  ]
+  styleUrls: ['./customer-registration.component.scss']
 })
 export class CustomerRegistrationComponent implements OnInit {
-  // Estado do componente
   activeTab: 'new' | 'update' = 'new';
   customers: Customer[] = [];
   selectedCustomer: Customer | null = null;
+  // Declare as propriedades aqui, fora do constructor
+  maxDate: string = '';
+  minDate: string = '';
+  
   formData: Customer = {
     id: '',
     name: '',
     email: '',
     birthdate: ''
   };
+
   message: Message = {
     text: '',
     type: 'success'
   };
 
-  constructor() {}
+  constructor() {
+    this.initializeDates();
+  }
+
+  initializeDates(): void {
+    // Data máxima é hoje
+    const today = new Date();
+    this.maxDate = today.toISOString().split('T')[0];
+
+    // Data mínima (exemplo: 100 anos atrás)
+    const minDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - 100);
+    this.minDate = minDate.toISOString().split('T')[0];
+  }
 
   ngOnInit(): void {
     this.loadCustomers();
   }
 
-  // Métodos de navegação
-  onBack(): void {
-    // Implementar lógica de navegação de volta
-    console.log('Navegando de volta...');
+  loadCustomers(): void {
+    // Aqui você pode inicializar com dados mockados se quiser
+    this.customers = [];
   }
 
-  // Métodos de manipulação de abas
-  setActiveTab(tab: 'new' | 'update'): void {
-    this.activeTab = tab;
-    this.resetForm();
-    this.clearMessage();
-  }
-
-  // Métodos de formulário
   handleInputChange(event: any): void {
-    const { name, value } = event.target;
-    this.formData = {
-      ...this.formData,
-      [name]: value
-    };
+    if (event instanceof Event) {
+      const { name, value } = event.target as HTMLInputElement;
+      this.formData = {
+        ...this.formData,
+        [name]: value
+      };
+    } else {
+      this.formData = {
+        ...this.formData,
+        birthdate: event
+      };
+    }
   }
 
   handleCustomerSelect(event: any): void {
@@ -100,7 +111,6 @@ export class CustomerRegistrationComponent implements OnInit {
     }
   }
 
-  // Métodos de validação
   validateForm(): boolean {
     if (!this.formData.name || !this.formData.email || !this.formData.birthdate) {
       this.showMessage('All fields are required', 'error');
@@ -113,20 +123,7 @@ export class CustomerRegistrationComponent implements OnInit {
       return false;
     }
 
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateRegex.test(this.formData.birthdate)) {
-      this.showMessage('Please enter a valid date (YYYY-MM-DD)', 'error');
-      return false;
-    }
-
     return true;
-  }
-
-  // Métodos de manipulação de dados
-  loadCustomers(): void {
-    // Aqui você implementaria a lógica para carregar os clientes do seu serviço
-    // Por enquanto, vamos usar um array vazio
-    this.customers = [];
   }
 
   addCustomer(): void {
@@ -157,7 +154,6 @@ export class CustomerRegistrationComponent implements OnInit {
     }
   }
 
-  // Métodos utilitários
   resetForm(): void {
     this.formData = {
       id: '',
@@ -170,11 +166,16 @@ export class CustomerRegistrationComponent implements OnInit {
 
   showMessage(text: string, type: 'error' | 'success'): void {
     this.message = { text, type };
-    // Limpar a mensagem após 5 segundos
     setTimeout(() => this.clearMessage(), 5000);
   }
 
   clearMessage(): void {
     this.message = { text: '', type: 'success' };
+  }
+
+  setActiveTab(tab: 'new' | 'update'): void {
+    this.activeTab = tab;
+    this.resetForm();
+    this.clearMessage();
   }
 }
