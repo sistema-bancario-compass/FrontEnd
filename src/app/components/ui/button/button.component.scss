@@ -1,0 +1,39 @@
+button {
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #fff;
+    margin-top: 12px;
+  
+    &.large {
+      width: 285px;
+      padding: 10px 12px;
+      font-size: 16px;
+    }
+  
+    &.small {
+      width: 140px;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+  
+    &.black {
+      background-color: #000;
+  
+      &:hover {
+        background-color: #222;
+      }
+    }
+  
+    &.red {
+      background-color: #e53935;
+  
+      &:hover {
+        background-color: #c62828;
+      }
+    }
+  }
+  
