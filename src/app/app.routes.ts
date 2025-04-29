@@ -6,9 +6,9 @@ import { CustomerInformationComponent } from './pages/customer-information/custo
 import { MainMenuComponent } from './pages/main-menu/main-menu.component';
 
 export const routes: Routes = [
-    { path: '', component: MainMenuComponent },
-    { path: 'customer-registration', component: CustomerRegistrationComponent },
-    { path: 'account-management', component: AccountManagementComponent},
-    { path: 'transaction-reports', component: TransactionReportsComponent },
-    { path: 'customer-information', component: CustomerInformationComponent },
+  { path: '', component: MainMenuComponent },
+  { path: 'customer-registration', component: CustomerRegistrationComponent },
+  { path: 'account-management', component: AccountManagementComponent },
+  { path: 'transaction-reports', component: TransactionReportsComponent },
+  { path: 'customer-information', component: CustomerInformationComponent },
 ];

@@ -1,1 +1,51 @@
-<p>customer-information works!</p>
+<div class="container">
+  <button class="back-button" (click)="goBack()">← Back to Main Menu</button>
+
+  <div class="card">
+    <h1>Customer Information</h1>
+    <p class="subtitle">View detailed customer information and accounts</p>
+
+    <label for="customer-select">Select Customer</label>
+    <select id="customer-select" [(ngModel)]="selectedCustomer">
+      <option [ngValue]="null">-- Select a customer --</option>
+      <option *ngFor="let customer of customers" [ngValue]="customer">
+        {{ customer.id }} - {{ customer.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="card" *ngIf="selectedCustomer">
+    <h2>Customer Details</h2>
+    <p><strong>Customer ID:</strong> {{ selectedCustomer.id }}</p>
+    <p><strong>Name:</strong> {{ selectedCustomer.name }}</p>
+    <p><strong>Email:</strong> {{ selectedCustomer.email }}</p>
+    <p><strong>Birth Date:</strong> {{ selectedCustomer.birthDate }}</p>
+  </div>
+
+  <div class="card" *ngIf="filteredAccounts.length > 0">
+    <h2>Accounts</h2>
+    <div *ngFor="let account of filteredAccounts" class="account-box">
+      <p><strong>Account ID:</strong> {{ account.id }}</p>
+      <p><strong>Type:</strong> {{ account.type }}</p>
+      <p><strong>Balance:</strong> ${{ account.balance.toFixed(2) }}</p>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="filteredTransactions.length > 0">
+    <h2>Recent Transactions</h2>
+    <div *ngFor="let tx of filteredTransactions" class="transaction-box">
+      <p><strong>Date:</strong> {{ tx.date }}</p>
+      <p><strong>Type:</strong> {{ tx.type | titlecase }}</p>
+      <p><strong>Amount:</strong> ${{ tx.amount.toFixed(2) }}</p>
+      <p><strong>Description:</strong> {{ tx.description }}</p>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="selectedCustomer && filteredAccounts.length === 0">
+    <p>No accounts found for this customer.</p>
+  </div>
+
+  <div class="card" *ngIf="selectedCustomer && filteredTransactions.length === 0">
+    <p>No recent transactions found.</p>
+  </div>
+</div>

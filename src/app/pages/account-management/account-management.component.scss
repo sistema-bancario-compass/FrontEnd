@@ -1,0 +1,85 @@
+.account-management {
+  background-color: #f5f5f5;
+  padding: 24px;
+  border-radius: 16px; // cantos bem arredondados
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  margin: 40px auto; // centraliza com espaço no topo
+  display: flex;
+  flex-direction: column;
+  gap: 24px; // espaço entre o header, os tabs e o botão final
+}
+
+.account-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; // garante o alinhamento à esquerda
+
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #333;
+  }
+
+  p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+}
+
+.tabs {
+  display: flex;
+  gap: 12px; // espaço entre os botões
+
+  button {
+    flex: 1; // cada botão ocupa o mesmo espaço
+    background-color: #eaeaea;
+    border: none;
+    padding: 14px 10px;
+    font-size: 14px;
+    color: #555;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background-color 0.3s, color 0.3s;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &.active {
+      background-color: #ffffff;
+      color: #000;
+      font-weight: 600;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+}
+
+.action-button {
+  width: 100%;
+  padding: 16px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #333;
+  }
+}

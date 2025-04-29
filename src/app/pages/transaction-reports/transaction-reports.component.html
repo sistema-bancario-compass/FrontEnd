@@ -1,1 +1,52 @@
-<p>transaction-reports works!</p>
+<section class="menu-container">
+
+    <div class="menu-header">
+        <h2>Transaction Reports</h2>
+        <p>Generate transaction reports for customers</p>
+    </div>
+    <div class="container-select">
+        <app-select-primary 
+        name="selectCustomer" 
+        label="Select Customer (Optional)"
+        placeholder="-- All Customers --"
+        [(value)]="selectedCustomer">
+        @for(customer of customers; track customer.id){
+            <option [value]="customer.id">
+                {{customer.name}}
+            </option>
+        }
+        @empty {
+            <option disabled>No customers available</option>
+        }
+        </app-select-primary>
+
+        <app-select-primary 
+        name="selectAccount" 
+        label="Select Acoount (Optional)"
+        placeholder="-- All Acoounts --"
+        [(value)]="selectedAccount">
+
+        @for(account of accounts; track account.id){
+            <option [value]="account.id">
+                {{account.type}}
+            </option>
+        }
+        @empty {
+            <option disabled>No account available</option>
+        }
+        </app-select-primary>
+    </div>
+
+
+    <div class="container-date">
+        <div class="container-child">
+            <label class="" for="start">Start Date</label>
+            <input type="date" name="start" id="start">
+        </div>
+        <div class="container-child">
+            <label for="end">End Date</label>
+            <input type="date" name="end" id="end">
+        </div>
+    </div>
+    <app-button size="small" color="black" label="Generate Report"></app-button>
+</section>
