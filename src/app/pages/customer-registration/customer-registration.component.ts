@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface Customer {
   id: string;
@@ -21,7 +22,6 @@ interface Message {
   templateUrl: './customer-registration.component.html',
   styleUrls: ['./customer-registration.component.scss']
 })
-
 export class CustomerRegistrationComponent implements OnInit {
   activeTab: 'new' | 'update' = 'new';
   customers: Customer[] = [];
@@ -41,11 +41,11 @@ export class CustomerRegistrationComponent implements OnInit {
     text: '',
     type: 'success'
   };
-  onBack(): void {
-    window.history.back();
-  }
-  constructor() {
-    this.initializeDates();
+
+  constructor(private router: Router) {}
+
+  goBack() {
+    this.router.navigate(['/']);
   }
 
   initializeDates(): void {
