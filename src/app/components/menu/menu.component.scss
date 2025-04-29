@@ -34,6 +34,9 @@
   background: #fafafa;
   cursor: pointer;
 }
+.menu-item:hover{
+  background: #f0eded;
+}
 
 .menu-item h3 {
   margin: 0;
@@ -60,4 +63,7 @@
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
+}
+.logout-button:hover{
+  background-color: #f0302c;
 }
