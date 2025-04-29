@@ -1,1 +1,147 @@
-<p>customer-registration works!</p>
+<div class="space-y-6">
+    <div class="flex items-center">
+      <Button variant="ghost" (click)="onBack()" class="mr-2">
+        <i class="h-4 w-4 mr-2">←</i>
+        Back to Main Menu
+      </Button>
+    </div>
+  
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Customer Registration</h2>
+        <p class="card-description">Register new customers or update existing profiles</p>
+      </div>
+  
+      <div class="card-content">
+        <div class="tabs">
+          <div class="tabs-list grid grid-cols-2">
+            <button (click)="setActiveTab('new')" [class.active]="activeTab === 'new'" class="flex items-center gap-2">
+              <i class="h-4 w-4">+</i>
+              New Customer
+            </button>
+            <button (click)="setActiveTab('update')" [class.active]="activeTab === 'update'" class="flex items-center gap-2">
+              <i class="h-4 w-4">⚙</i>
+              Update Customer
+            </button>
+          </div>
+  
+          <!-- New Customer Form -->
+          <div *ngIf="activeTab === 'new'" class="space-y-4 mt-4">
+            <form (ngSubmit)="handleSubmit($event)" class="space-y-4">
+              <div class="space-y-2">
+                <label for="name">Full Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  [(ngModel)]="formData.name"
+                  (ngModelChange)="handleInputChange($event)"
+                  placeholder="Enter customer's full name"
+                  class="w-full p-2 border rounded-md"
+                >
+              </div>
+  
+              <div class="space-y-2">
+                <label for="email">Email Address</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  [(ngModel)]="formData.email"
+                  (ngModelChange)="handleInputChange($event)"
+                  placeholder="Enter customer's email address"
+                  class="w-full p-2 border rounded-md"
+                >
+              </div>
+  
+              <div class="space-y-2">
+                <label for="birthdate">Birth Date (YYYY-MM-DD)</label>
+                <input
+                  id="birthdate"
+                  name="birthdate"
+                  [(ngModel)]="formData.birthdate"
+                  (ngModelChange)="handleInputChange($event)"
+                  placeholder="YYYY-MM-DD"
+                  class="w-full p-2 border rounded-md"
+                >
+              </div>
+  
+              <button type="submit" class="w-full flex items-center gap-2 justify-center bg-primary text-white p-2 rounded-md">
+                <i class="h-4 w-4">💾</i>
+                Register Customer
+              </button>
+            </form>
+          </div>
+  
+          <!-- Update Customer Form -->
+          <div *ngIf="activeTab === 'update'" class="space-y-4 mt-4">
+            <div class="space-y-2">
+              <label for="customer-select">Select Customer</label>
+              <select
+                id="customer-select"
+                class="w-full p-2 border rounded-md"
+                (change)="handleCustomerSelect($event)"
+                [value]="selectedCustomer?.id || ''"
+              >
+                <option value="">-- Select a customer --</option>
+                <option *ngFor="let customer of customers" [value]="customer.id">
+                  {{customer.id}} - {{customer.name}}
+                </option>
+              </select>
+            </div>
+  
+            <form *ngIf="selectedCustomer" (ngSubmit)="handleSubmit($event)" class="space-y-4">
+              <div class="space-y-2">
+                <label for="update-name">Full Name</label>
+                <input
+                  id="update-name"
+                  name="name"
+                  [(ngModel)]="formData.name"
+                  (ngModelChange)="handleInputChange($event)"
+                  placeholder="Enter customer's full name"
+                  class="w-full p-2 border rounded-md"
+                >
+              </div>
+  
+              <div class="space-y-2">
+                <label for="update-email">Email Address</label>
+                <input
+                  id="update-email"
+                  name="email"
+                  type="email"
+                  [(ngModel)]="formData.email"
+                  (ngModelChange)="handleInputChange($event)"
+                  placeholder="Enter customer's email address"
+                  class="w-full p-2 border rounded-md"
+                >
+              </div>
+  
+              <div class="space-y-2">
+                <label for="update-birthdate">Birth Date (YYYY-MM-DD)</label>
+                <input
+                  id="update-birthdate"
+                  name="birthdate"
+                  [(ngModel)]="formData.birthdate"
+                  (ngModelChange)="handleInputChange($event)"
+                  placeholder="YYYY-MM-DD"
+                  class="w-full p-2 border rounded-md"
+                >
+              </div>
+  
+              <button type="submit" class="w-full flex items-center gap-2 justify-center bg-primary text-white p-2 rounded-md">
+                <i class="h-4 w-4">💾</i>
+                Update Customer
+              </button>
+            </form>
+          </div>
+        </div>
+  
+        <!-- Message Display -->
+        <div *ngIf="message.text" 
+             [class]="message.type === 'error' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'"
+             class="mt-4 p-3 rounded-md">
+          {{message.text}}
+        </div>
+      </div>
+    </div>
+  </div>
+  
