@@ -17,6 +17,11 @@ $shadow-color: rgba(0, 0, 0, 0.1);
   letter-spacing: 0.01em;
 }
 
+.flex.items-center{
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
 .space-y-6 {
   .card {
     background: white;
@@ -25,6 +30,8 @@ $shadow-color: rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 700px;
     overflow: hidden;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 
     .card-header {
       background-color: $primary-color;
@@ -126,14 +133,14 @@ $shadow-color: rgba(0, 0, 0, 0.1);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
-            align-items: center; // Isso garante o alinhamento vertical
-            gap: 0.5rem;
-            
-            .refresh-icon {
-              display: flex; // Isso ajuda no alinhamento
-              align-items: center;
-              justify-content: center;
-            }
+          align-items: center; // Isso garante o alinhamento vertical
+          gap: 0.5rem;
+          
+          .refresh-icon {
+            display: flex; // Isso ajuda no alinhamento
+            align-items: center;
+            justify-content: center;
+          }
 
             &.active {
               background-color: $primary-color;
@@ -379,6 +386,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 
-
-
+  .back-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+  }
 }

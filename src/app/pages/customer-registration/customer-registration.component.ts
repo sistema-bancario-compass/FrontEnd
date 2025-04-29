@@ -21,6 +21,7 @@ interface Message {
   templateUrl: './customer-registration.component.html',
   styleUrls: ['./customer-registration.component.scss']
 })
+
 export class CustomerRegistrationComponent implements OnInit {
   activeTab: 'new' | 'update' = 'new';
   customers: Customer[] = [];
@@ -40,7 +41,9 @@ export class CustomerRegistrationComponent implements OnInit {
     text: '',
     type: 'success'
   };
-
+  onBack(): void {
+    window.history.back();
+  }
   constructor() {
     this.initializeDates();
   }
