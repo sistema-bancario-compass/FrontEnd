@@ -5,7 +5,7 @@
     <p>Create accounts, make deposits and withdrawals</p>
   </div>
 
-  <!-- Tabs wrapper com fundo -->
+  <!-- Tabs wrapper -->
   <div class="tabs-wrapper">
     <div class="tabs">
       <button
@@ -13,20 +13,6 @@
         [ngClass]="{ active: selectedTab === 'create' }"
         (click)="selectTab('create')"
       >
-        <!-- Ícone Create Account (+) -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="none"
-          stroke="#555"
-          viewBox="0 0 24 24"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M12 5v14M5 12h14" />
-        </svg>
         <span>Create Account</span>
       </button>
 
@@ -35,20 +21,6 @@
         [ngClass]="{ active: selectedTab === 'deposit' }"
         (click)="selectTab('deposit')"
       >
-        <!-- Ícone Deposit (seta para cima) -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="none"
-          stroke="#555"
-          viewBox="0 0 24 24"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M12 19V6M5 12l7-7 7 7" />
-        </svg>
         <span>Deposit</span>
       </button>
 
@@ -57,35 +29,55 @@
         [ngClass]="{ active: selectedTab === 'withdraw' }"
         (click)="selectTab('withdraw')"
       >
-        <!-- Ícone Withdraw (seta para baixo) -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="none"
-          stroke="#555"
-          viewBox="0 0 24 24"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M12 5v14M5 12l7 7 7-7" />
-        </svg>
         <span>Withdraw</span>
       </button>
     </div>
   </div>
 
-  <!-- Input -->
-  <div class="form-section">
-    <app-input-primary
-      label="Amount"
-      name="AmountNumber"
-      type="number"
-    ></app-input-primary>
-  </div>
+  <!-- Se for CREATE -->
+  <ng-container *ngIf="selectedTab === 'create'">
+    <app-select-primary
+      label="Select Customer"
+      name="Customers"
+      type="text"
+      placeholder="--Customers--"
+    ></app-select-primary>
 
-  <!-- Submit Button -->
+    <app-select-primary
+      label="Account type"
+      name="Customers"
+      type="text"
+      placeholder="Checking"
+    ></app-select-primary>
+  </ng-container>
+
+  <!-- Se for DEPOSIT ou WITHDRAW -->
+  <ng-container *ngIf="selectedTab === 'deposit' || selectedTab === 'withdraw'">
+    <app-select-primary
+      label="Select Customer"
+      name="Customers"
+      type="text"
+      placeholder="--Customers--"
+    ></app-select-primary>
+
+    <app-select-primary
+      label="Select Account"
+      name="Account"
+      type="text"
+      placeholder="--Select an account--"
+    ></app-select-primary>
+
+    <div class="form-section">
+      <app-input-primary
+        label="Amount"
+        name="AmountNumber"
+        type="number"
+        placeholder="$."
+      ></app-input-primary>
+    </div>
+  </ng-container>
+
+  <!-- Botão de Submit (sempre aparece) -->
   <div class="submit-section">
     <button class="action-button" type="button" (click)="onSubmit()">
       {{ getActionButtonText() }}

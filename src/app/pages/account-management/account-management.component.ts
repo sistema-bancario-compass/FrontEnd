@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 
 import { CommonModule } from '@angular/common'; // <-- Adiciona esta linha
 import { InputPrimaryComponent } from '../../components/ui/input-primary/input-primary.component';
+import { SelectPrimaryComponent } from '../../components/ui/select-primary/select-primary.component';
 
 @Component({
   selector: 'app-account-management',
   standalone: true,
-  imports: [InputPrimaryComponent, CommonModule],
+  imports: [InputPrimaryComponent, CommonModule, SelectPrimaryComponent],
   templateUrl: './account-management.component.html',
   styleUrls: ['./account-management.component.scss'],
 })
