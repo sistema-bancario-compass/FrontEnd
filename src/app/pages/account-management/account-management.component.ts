@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { InputPrimaryComponent } from '../../components/input-primary/input-primary.component';
 
 @Component({
   selector: 'app-account-management',
-  imports: [],
+  imports: [InputPrimaryComponent],
   templateUrl: './account-management.component.html',
-  styleUrl: './account-management.component.scss'
+  styleUrl: './account-management.component.scss',
 })
-export class AccountManagementComponent {
-
-}
+export class AccountManagementComponent {}
