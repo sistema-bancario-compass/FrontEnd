@@ -1,9 +1,34 @@
-<p>account-management works!</p>
+<div class="account-management">
+  <div class="account-header">
+    <h1>Account Management</h1>
+    <p>Create accounts, make deposits and withdrawals</p>
+  </div>
 
-<app-input-primary
-  label="Nome do Cliente"
-  name="customerName"
-  type="text"
-  placeholder="Digite o nome do cliente"
->
-</app-input-primary>
+  <div class="tabs">
+    <button
+      [ngClass]="{ active: selectedTab === 'create' }"
+      (click)="selectTab('create')"
+    >
+      <svg>...</svg> Create Account
+    </button>
+    <button
+      [ngClass]="{ active: selectedTab === 'deposit' }"
+      (click)="selectTab('deposit')"
+    >
+      <svg>...</svg> Deposit
+    </button>
+    <button
+      [ngClass]="{ active: selectedTab === 'withdraw' }"
+      (click)="selectTab('withdraw')"
+    >
+      <svg>...</svg> Withdraw
+    </button>
+  </div>
+  <app-input-primary
+    label="Amount"
+    name="AmountNumber"
+    type="text"
+  ></app-input-primary>
+
+  <button class="action-button">Create Account</button>
+</div>
