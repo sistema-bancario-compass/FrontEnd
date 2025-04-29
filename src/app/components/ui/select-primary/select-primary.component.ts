@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   selector: 'app-select-primary',
   imports: [],
   templateUrl: './select-primary.component.html',
-  styleUrl: './select-primary.component.scss'
+  styleUrl: './select-primary.component.scss',
 })
 export class SelectPrimaryComponent {
   @Input() name: string = '';

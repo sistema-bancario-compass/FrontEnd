@@ -1,9 +1,6 @@
-
 <app-back-button></app-back-button>
 
-<div class="account-management">
 <section class="account-management">
-
   <div class="account-header">
     <h1>Account Management</h1>
     <p>Create accounts, make deposits and withdrawals</p>
@@ -39,34 +36,66 @@
 
   <ng-container *ngIf="selectedTab === 'create'">
     <app-select-primary
-      label="Select Customer"
-      name="Customers"
-      type="text"
-      placeholder="--Customers--"
-    ></app-select-primary>
+      name="selectCustomer"
+      label="Select Customer (Optional)"
+      placeholder="-- All Customers --"
+      [(value)]="selectedCustomer"
+    >
+      @for(customer of customers; track customer.id){
+      <option [value]="customer.id">
+        {{ customer.name }}
+      </option>
+      } @empty {
+      <option disabled>No customers available</option>
+      } ></app-select-primary
+    >
 
     <app-select-primary
-      label="Account type"
-      name="Customers"
-      type="text"
-      placeholder="Checking"
-    ></app-select-primary>
+      name="selectAccount"
+      label="Account Type"
+      placeholder="-- All Accounts --"
+      [(value)]="selectedAccount"
+    >
+      @for(account of accounts; track account.id){
+      <option [value]="account.id">
+        {{ account.type }}
+      </option>
+      } @empty {
+      <option disabled>No account available</option>
+      }
+    </app-select-primary>
   </ng-container>
 
   <ng-container *ngIf="selectedTab === 'deposit' || selectedTab === 'withdraw'">
     <app-select-primary
-      label="Select Customer"
-      name="Customers"
-      type="text"
-      placeholder="--Customers--"
-    ></app-select-primary>
+      name="selectCustomer"
+      label="Select Customer (Optional)"
+      placeholder="-- All Customers --"
+      [(value)]="selectedCustomer"
+    >
+      @for(customer of customers; track customer.id){
+      <option [value]="customer.id">
+        {{ customer.name }}
+      </option>
+      } @empty {
+      <option disabled>No customers available</option>
+      } ></app-select-primary
+    >
 
     <app-select-primary
-      label="Select Account"
-      name="Account"
-      type="text"
-      placeholder="--Select an account--"
-    ></app-select-primary>
+      name="selectAccount"
+      label="Select Acoount (Optional)"
+      placeholder="-- All Acoounts --"
+      [(value)]="selectedAccount"
+    >
+      @for(account of accounts; track account.id){
+      <option [value]="account.id">
+        {{ account.type }}
+      </option>
+      } @empty {
+      <option disabled>No account available</option>
+      }
+    </app-select-primary>
 
     <div class="form-section">
       <app-input-primary
