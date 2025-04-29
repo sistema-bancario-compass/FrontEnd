@@ -3,12 +3,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common'; // <-- Adiciona esta linha
 import { InputPrimaryComponent } from '../../components/ui/input-primary/input-primary.component';
+import { BackButtonComponent } from '../../components/ui/back-button/back-button.component';
 import { SelectPrimaryComponent } from '../../components/ui/select-primary/select-primary.component';
 
 @Component({
   selector: 'app-account-management',
   standalone: true,
-  imports: [InputPrimaryComponent, CommonModule, BackButtonComponent], // <-- Adiciona o CommonModule aqui
+  imports: [InputPrimaryComponent, CommonModule, BackButtonComponent, SelectPrimaryComponent], // <-- Adiciona o CommonModule aqui
   templateUrl: './account-management.component.html',
   styleUrls: ['./account-management.component.scss'],
 })
