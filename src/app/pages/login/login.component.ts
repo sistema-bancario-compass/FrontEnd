@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule, 
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
@@ -18,8 +19,8 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      username: [''],
+      password: ['']
     });
   }
 
@@ -32,10 +33,26 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      this.router.navigate(['/main-menu']);
-    } else {
-      this.loginForm.markAllAsTouched();
+    const formValue = this.loginForm.value;
+
+    
+    if (!formValue.username || !formValue.password) {
+      if (!formValue.username) {
+        this.username?.setErrors({ required: true });
+      }
+      if (!formValue.password) {
+        this.password?.setErrors({ required: true });
+      }
+      return;
     }
+
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+    if (!emailRegex.test(formValue.username)) {
+      this.username?.setErrors({ emailRegexError: 'Please enter a valid email address' });
+      return;
+    }
+
+    this.router.navigate(['/main-menu']);
   }
 }

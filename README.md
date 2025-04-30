@@ -1,59 +1,121 @@
-git commit -m "first commit"git commit -m "first commit"# FrontEnd
+# 💻 Banking System Frontend (Angular 19)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+Este projeto representa a interface web do sistema bancário refatorado, desenvolvido com Angular 19 e integrado à API REST do backend. Ele oferece uma experiência moderna, responsiva e segura para usuários bancários.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📦 Tecnologias e Ferramentas
+
+- Angular 19  
+- TypeScript  
+- SCSS  
+- Angular CLI  
+- JSON Server (simulação de API local)  
+- VS Code (recomendado)
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+frontend/
+├── src/
+│   ├── app/
+│   │   ├── components/           # Componentes reutilizáveis
+│   │   │   ├── menu/             # Navegação lateral
+│   │   │   └── ui/               # Botões, inputs, selects
+│   │   ├── core/services/        # Serviços de comunicação com backend
+│   │   ├── environment/          # Configurações de ambiente
+│   │   ├── pages/                # Telas principais da aplicação
+│   │   ├── app.component.*       # Componente raiz
+│   │   ├── app.routes.ts         # Definições de rotas
+│   │   └── app.config.ts         # Configuração geral da aplicação
+│   ├── index.html
+│   ├── main.ts
+│   └── styles.scss
+├── public/                       # Arquivos estáticos (favicon, logos, etc.)
+├── angular.json                  # Configurações do Angular
+├── db.json                       # Base de dados fake (JSON Server)
+├── package.json                  # Dependências e scripts npm
+└── README.md
+```
+
+---
+
+## 🚀 Como Executar
+
+### Pré-requisitos
+
+- Node.js 18+
+- Angular CLI 16+
+- (Opcional) JSON Server para testes com API local
+
+### Passos
 
 ```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/frontend.git
+cd frontend
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor Angular
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+A aplicação estará disponível em:  
+📍 http://localhost:4200
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🔌 Simular API com JSON Server (opcional)
 
 ```bash
-ng generate --help
+npx json-server --watch db.json
 ```
 
-## Building
+A API estará disponível em:  
+📍 http://localhost:3000
 
-To build the project run:
+---
 
-```bash
-ng build
+## 🌐 Principais Páginas
+
+| Página                    | Caminho                   | Descrição                             |
+|---------------------------|---------------------------|-----------------------------------------|
+| Login                     | `/`                       | Tela de autenticação                   |
+| Menu Principal            | `/main-menu`              | Tela inicial pós-login                 |
+| Customer Registration     | `/customer-registration`  | Formulário de registro de cliente      |
+| Customer Information      | `/customer-information`   | Visualização de dados do cliente       |
+| Account Management        | `/account-management`     | Ações sobre contas bancárias           |
+| Transaction-reports       | `/transaction-reports`    | Histórico de transações bancárias      |
+
+---
+
+## 🔗 Integração com Backend
+
+Os serviços localizados em core/services/*.service.ts consomem os endpoints REST disponibilizados pelo backend.
+
+Configure a URL base no arquivo:
+
+src/app/environment/environment.ts
+
+```ts
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080'
+};
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 👥 Contribuidores
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Projeto desenvolvido durante o Hackathon UOL Compass.
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+## 📄 Licença
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este projeto está sob a licença MIT. Consulte o arquivo LICENSE para mais detalhes.
