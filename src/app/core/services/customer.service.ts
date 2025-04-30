@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environment/environment';
 
 export interface Customer {
   id: string;
   name: string;
   email: string;
-  birthday: Date
+  birthday: Date;
 }
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
-  private readonly baseUrl = 'http://localhost:3000/customers';
+  private readonly baseUrl = environment.baseUrl + '/customers';
 
   constructor(private http: HttpClient) {}
 

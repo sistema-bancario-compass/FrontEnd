@@ -42,7 +42,7 @@
   "transactions": [
     {
       "id": "T0001",
-      "customerId": "C00001",
+      "source": "C00001",
       "date": "2025-04-20",
       "type": "credit",
       "amount": 1500,
@@ -50,7 +50,7 @@
     },
     {
       "id": "T0002",
-      "customerId": "C00001",
+      "source": "C00001",
       "date": "2025-04-22",
       "type": "debit",
       "amount": 300,
@@ -58,7 +58,7 @@
     },
     {
       "id": "T0003",
-      "customerId": "C00002",
+      "source": "C00002",
       "date": "2025-04-21",
       "type": "debit",
       "amount": 100,
