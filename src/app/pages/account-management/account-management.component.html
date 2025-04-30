@@ -79,12 +79,12 @@
       </option>
       } @empty {
       <option disabled>No customers available</option>
-      } ></app-select-primary
-    >
+      }
+    </app-select-primary>
 
     <app-select-primary
       name="selectAccount"
-      label="Select Acoount (Optional)"
+      label="Select Account (Optional)"
       placeholder="-- All Acoounts --"
       [(value)]="selectedAccount"
     >
@@ -97,14 +97,12 @@
       }
     </app-select-primary>
 
-    <div class="form-section">
-      <app-input-primary
-        label="Amount"
-        name="AmountNumber"
-        type="number"
-        placeholder="$."
-      ></app-input-primary>
-    </div>
+    <app-input-primary
+      label="Amount"
+      name="AmountNumber"
+      type="number"
+      placeholder="$."
+    ></app-input-primary>
   </ng-container>
 
   <div class="submit-section">

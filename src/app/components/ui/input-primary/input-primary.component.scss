@@ -1,6 +1,7 @@
 .input-primary {
   display: flex;
   flex-direction: column;
+
   gap: 0.5rem;
 }
 
@@ -12,8 +13,8 @@
 
 .input-primary input {
   width: 100%;
+  box-sizing: border-box;
   padding: 6px 12px;
-  width: 260px;
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 14px;
