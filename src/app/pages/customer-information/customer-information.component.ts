@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Customer, CustomerService } from '../../core/services/customer.service';
+import { Account, AccountService } from '../../core/services/account.service';
+import { Transaction, TransactionService } from '../../core/services/transactions.service';
 
 @Component({
   selector: 'app-customer-information',
@@ -10,90 +13,37 @@ import { Router } from '@angular/router';
   templateUrl: './customer-information.component.html',
   styleUrls: ['./customer-information.component.scss']
 })
-export class CustomerInformationComponent {
-  constructor(private router: Router) {}
+export class CustomerInformationComponent implements OnInit {
+  constructor(private router: Router, 
+    private customerService: CustomerService,
+    private accountService: AccountService,
+    private transactionService: TransactionService,) {}
+
+  customers: Customer[] = [];
+  accounts: Account[] = [];
+  transactions: Transaction[] = [];
+    
+  selectedCustomer: Customer | null = null;
+
+  ngOnInit(): void {
+  this.customerService.getAll().subscribe((data) => (this.customers = data));
+  this.accountService.getAll().subscribe((data) => (this.accounts = data));
+  this.transactionService.getAll().subscribe((data) => (this.transactions = data));
+    }
 
   goBack() {
     this.router.navigate(['/']);
   }
 
-  customers = [
-    {
-      id: 'C00001',
-      name: 'Alice Silva',
-      email: 'alice.silva@example.com',
-      birthDate: '1990-04-21'
-    },
-    {
-      id: 'C00002',
-      name: 'Bob Esponja',
-      email: 'bob@abacaxi.com',
-      birthDate: '1986-07-14'
-    },
-    {
-      id: 'C00003',
-      name: 'Carlos Souza',
-      email: 'carlos.souza@example.com',
-      birthDate: '1978-12-09'
-    }
-  ];
-
-  selectedCustomer: any = null;
-
-  accounts = [
-    {
-      customerId: 'C00001',
-      id: 'A001',
-      type: 'Checking',
-      balance: 1250.75
-    },
-    {
-      customerId: 'C00001',
-      id: 'A002',
-      type: 'Savings',
-      balance: 3620.90
-    },
-    {
-      customerId: 'C00002',
-      id: 'A003',
-      type: 'Checking',
-      balance: 980.15
-    }
-  ];
-
-  transactions = [
-    {
-      customerId: 'C00001',
-      date: '2025-04-20',
-      type: 'credit',
-      amount: 1500,
-      description: 'Salary'
-    },
-    {
-      customerId: 'C00001',
-      date: '2025-04-22',
-      type: 'debit',
-      amount: 300,
-      description: 'Grocery Shopping'
-    },
-    {
-      customerId: 'C00002',
-      date: '2025-04-21',
-      type: 'debit',
-      amount: 100,
-      description: 'Subscription Service'
-    }
-  ];
-
-  get filteredAccounts() {
+  get filteredAccounts(): Account[] {
     return this.selectedCustomer
-      ? this.accounts.filter(a => a.customerId === this.selectedCustomer.id)
+      ? this.accounts.filter(a => a.customerId === this.selectedCustomer!.id)
       : [];
   }
 
-  get filteredTransactions() {
+  get filteredTransactions(): Transaction[] {
     return this.selectedCustomer
-      ? this.transactions.filter(t => t.customerId === this.selectedCustomer.id)
+      ? this.transactions.filter(t => t.customerId === this.selectedCustomer!.id)
       : [];
   }
 }
