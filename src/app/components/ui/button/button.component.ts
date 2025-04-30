@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() size: 'large' | 'small' = 'large';
-  @Input() color: 'black' | 'red' = 'black';
+  @Input() color: 'black' | 'red' | "gray" = 'black';
   @Input() label: string = 'Submit';
   @Input() type: 'button' | 'submit' = 'button';
 }

@@ -35,5 +35,12 @@ button {
         background-color: #c62828;
       }
     }
-  }
+    &.gray {
+      background-color: #cccccc;
+      color: #000;
   
+      &:hover {
+        background-color: #ececec;
+      }
+  }
+}

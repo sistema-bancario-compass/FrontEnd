@@ -1,40 +1,33 @@
 <app-back-button></app-back-button>
 <section class="menu-container">
-
     <div class="menu-header">
         <h2>Transaction Reports</h2>
         <p>Generate transaction reports for customers</p>
     </div>
     <div class="container-select">
-        <app-select-primary 
-        name="selectCustomer" 
-        label="Select Customer (Optional)"
-        placeholder="-- All Customers --"
-        [(value)]="selectedCustomer">
-        @for(customer of customers; track customer.id){
+        <app-select-primary name="selectCustomer" label="Select Customer (Optional)" placeholder="-- All Customers --"
+            [(value)]="selectedCustomer">
+            @for(customer of customers; track customer.id){
             <option [value]="customer.id">
                 {{customer.name}}
             </option>
-        }
-        @empty {
+            }
+            @empty {
             <option disabled>No customers available</option>
-        }
+            }
         </app-select-primary>
 
-        <app-select-primary 
-        name="selectAccount" 
-        label="Select Acoount (Optional)"
-        placeholder="-- All Acoounts --"
-        [(value)]="selectedAccount">
+        <app-select-primary name="selectAccount" label="Select Acoount (Optional)" placeholder="-- All Acoounts --"
+            [(value)]="selectedAccount">
 
-        @for(account of accounts; track account.id){
+            @for(account of accounts; track account.id){
             <option [value]="account.id">
                 {{account.type}}
             </option>
-        }
-        @empty {
+            }
+            @empty {
             <option disabled>No account available</option>
-        }
+            }
         </app-select-primary>
     </div>
 
@@ -42,12 +35,50 @@
     <div class="container-date">
         <div class="container-child">
             <label class="" for="start">Start Date</label>
-            <input type="date" name="start" id="start">
+            <input type="date" name="start" id="start" [(ngModel)]="startDate">
         </div>
         <div class="container-child">
             <label for="end">End Date</label>
-            <input type="date" name="end" id="end">
+            <input type="date" name="end" id="end" [(ngModel)]="endDate">
         </div>
     </div>
-    <app-button size="small" color="black" label="Generate Report"></app-button>
-</section>
+    <div class="button-component">
+        <app-button size="small" color="black" label="Generate Report" (click)="generateReport()">
+        </app-button>
+        @if (showResults) {
+        <app-button size="small" color="gray" label="Clear Report" (click)="clearReport()">
+        </app-button>
+        }
+    </div>
+    @if (showResults) {
+    <section class="transaction-box">
+        @if (transactions.length > 0) {
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Customer</th>
+                    <th>Account</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (t of transactions; track t.id) {
+                <tr>
+                    <td>{{ t.date }}</td>
+                    <td>{{ t.customerId }}</td>
+                    <td>{{ t.accountId }}</td>
+                    <td>{{ t.type }}</td>
+                    <td>{{ t.amount | currency }}</td>
+                    <td>{{ t.description }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        } @else {
+        <p>No transactions found.</p>
+        }
+    </section>
+    }
