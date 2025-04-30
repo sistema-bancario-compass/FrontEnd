@@ -15,6 +15,7 @@
           <div class="error" *ngIf="username?.touched && username?.invalid">
             <span *ngIf="username?.errors?.['required']">Email is required.</span>
             <span *ngIf="username?.errors?.['email']">Invalid email format.</span>
+            <span *ngIf="username?.errors?.['zodError']">{{ username?.errors?.['zodError'] }}</span>
           </div>
   
           <label for="password">Password</label>
@@ -24,16 +25,13 @@
             formControlName="password"
             placeholder="Enter your password"
           />
-          <div class="error" *ngIf="password?.touched && password?.invalid">
-            <span>Password is required.</span>
+          <div class="error" *ngIf="username?.touched && username?.invalid">
+            <span *ngIf="username?.errors?.['required']">Email is required.</span>
+            <span *ngIf="username?.errors?.['emailRegexError']">{{ username?.errors?.['emailRegexError'] }}</span>
           </div>
   
           <button type="submit">Criar conta</button>
-
         </form>
-  
-
       </div>
     </div>
   </div>
-  
