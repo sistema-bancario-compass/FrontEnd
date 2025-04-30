@@ -4,9 +4,11 @@ import { AccountManagementComponent } from './pages/account-management/account-m
 import { TransactionReportsComponent } from './pages/transaction-reports/transaction-reports.component';
 import { CustomerInformationComponent } from './pages/customer-information/customer-information.component';
 import { MainMenuComponent } from './pages/main-menu/main-menu.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
-  { path: '', component: MainMenuComponent },
+  { path: '', component: LoginComponent},
+  { path: 'main-menu', component: MainMenuComponent },
   { path: 'customer-registration', component: CustomerRegistrationComponent },
   { path: 'account-management', component: AccountManagementComponent },
   { path: 'transaction-reports', component: TransactionReportsComponent },

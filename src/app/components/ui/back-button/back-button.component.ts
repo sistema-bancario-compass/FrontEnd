@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class BackButtonComponent {
     constructor(private router: Router) {}
     goBack() {
-        this.router.navigate(['/']);
+        this.router.navigate(['/main-menu']);
       }
 
   @Input() label: string = 'Back to Menu';
