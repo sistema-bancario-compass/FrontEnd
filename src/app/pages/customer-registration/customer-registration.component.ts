@@ -53,109 +53,8 @@ export class CustomerRegistrationComponent implements OnInit {
   };
 
   transactions: Transaction[] = [
-    {
-      id: 'T00001',
-      customerId: 'C00001',
-      customerName: 'John Doe',
-      customerEmail: 'john@email.com',
-      date: '2025-04-20',
-      type: 'credit',
-      amount: 1500,
-      description: 'Salary'
-    },
-    {
-      id: 'T00002',
-      customerId: 'C00001',
-      customerName: 'John Doe',
-      customerEmail: 'john@email.com',
-      date: '2025-04-22',
-      type: 'debit',
-      amount: 300,
-      description: 'Grocery Shopping'
-    },
-    {
-      id: 'T00003',
-      customerId: 'C00002',
-      customerName: 'Maria Silva',
-      customerEmail: 'maria@email.com',
-      date: '2025-04-21',
-      type: 'credit',
-      amount: 2000,
-      description: 'Freelance Payment'
-    },
-    {
-      id: 'T00004',
-      customerId: 'C00002',
-      customerName: 'Maria Silva',
-      customerEmail: 'maria@email.com',
-      date: '2025-04-23',
-      type: 'debit',
-      amount: 150.50,
-      description: 'Internet Bill'
-    },
-    {
-      id: 'T00005',
-      customerId: 'C00003',
-      customerName: 'Carlos Santos',
-      customerEmail: 'carlos@email.com',
-      date: '2025-04-20',
-      type: 'credit',
-      amount: 3000,
-      description: 'Investment Return'
-    },
-    {
-      id: 'T00006',
-      customerId: 'C00003',
-      customerName: 'Carlos Santos',
-      customerEmail: 'carlos@email.com',
-      date: '2025-04-24',
-      type: 'debit',
-      amount: 800,
-      description: 'Rent Payment'
-    },
-    {
-      id: 'T00007',
-      customerId: 'C00004',
-      customerName: 'Ana Oliveira',
-      customerEmail: 'ana@email.com',
-      date: '2025-04-21',
-      type: 'credit',
-      amount: 2500,
-      description: 'Monthly Salary'
-    },
-    {
-      id: 'T00008',
-      customerId: 'C00004',
-      customerName: 'Ana Oliveira',
-      customerEmail: 'ana@email.com',
-      date: '2025-04-25',
-      type: 'debit',
-      amount: 450,
-      description: 'Utility Bills'
-    }
+    // ... seus dados de transações existentes ...
   ];
-
-  get filteredTransactions() {
-    return this.selectedCustomer
-      ? this.transactions.filter((t: Transaction) => t.customerId === this.selectedCustomer?.id)
-      : [];
-  }
-
-  get totalCredits() {
-    return this.filteredTransactions
-      .filter((t: Transaction) => t.type === 'credit')
-      .reduce((sum, t) => sum + t.amount, 0);
-  }
-
-  get totalDebits() {
-    return this.filteredTransactions
-      .filter((t: Transaction) => t.type === 'debit')
-      .reduce((sum, t) => sum + t.amount, 0);
-  }
-
-  get balance() {
-    return this.totalCredits - this.totalDebits;
-  }
 
   constructor(private router: Router) {}
 
@@ -174,39 +73,40 @@ export class CustomerRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCustomers();
+    this.initializeDates();
   }
 
   loadCustomers(): void {
-    // Criando um Set para obter customers únicos das transactions
-    const uniqueCustomers = new Set(
-      this.transactions.map(t => JSON.stringify({
-        id: t.customerId,
-        name: t.customerName,
-        email: t.customerEmail
-      }))
-    );
-    this.customers = Array.from(uniqueCustomers).map(customer => {
-      const { id, name, email } = JSON.parse(customer);
-      return {
-        id,
-        name,
-        email,
-        birthdate: '' 
-      };
+    const uniqueCustomers = new Map();
+    
+    this.transactions.forEach(t => {
+      if (!uniqueCustomers.has(t.customerId)) {
+        uniqueCustomers.set(t.customerId, {
+          id: t.customerId,
+          name: t.customerName,
+          email: t.customerEmail,
+          birthdate: ''
+        });
+      }
     });
+    
+    this.customers = Array.from(uniqueCustomers.values());
   }
 
   handleInputChange(event: any): void {
-    if (event instanceof Event) {
-      const { name, value } = event.target as HTMLInputElement;
+    const value = event?.target?.value ?? event;
+    const name = event?.target?.name;
+
+    if (name) {
       this.formData = {
         ...this.formData,
         [name]: value
       };
-    } else {
+    } else if (typeof event === 'string') {
+      // Assume it's a birthdate input
       this.formData = {
         ...this.formData,
-        birthdate: event
+        birthdate: value
       };
     }
   }
@@ -243,7 +143,7 @@ export class CustomerRegistrationComponent implements OnInit {
   }
 
   validateForm(): boolean {
-    if (!this.formData.name || !this.formData.email || !this.formData.birthdate) {
+    if (!this.formData.name.trim() || !this.formData.email.trim() || !this.formData.birthdate) {
       this.showMessage('All fields are required', 'error');
       return false;
     }
@@ -258,13 +158,17 @@ export class CustomerRegistrationComponent implements OnInit {
   }
 
   addCustomer(): void {
-    const newId = `C${String(this.customers.length + 1).padStart(5, '0')}`;
+    const lastId = this.customers.length > 0 
+      ? parseInt(this.customers[this.customers.length - 1].id.substring(1))
+      : 0;
+    
+    const newId = `C${String(lastId + 1).padStart(5, '0')}`;
     const newCustomer: Customer = {
       ...this.formData,
       id: newId
     };
 
-    this.customers.push(newCustomer);
+    this.customers = [...this.customers, newCustomer];
     this.showMessage(`Customer registered successfully with ID: ${newId}`, 'success');
     this.resetForm();
   }
@@ -275,14 +179,14 @@ export class CustomerRegistrationComponent implements OnInit {
       return;
     }
 
-    const index = this.customers.findIndex(c => c.id === this.selectedCustomer?.id);
-    if (index !== -1) {
-      this.customers[index] = {
-        ...this.formData,
-        id: this.selectedCustomer.id
-      };
-      this.showMessage('Customer updated successfully', 'success');
-    }
+    this.customers = this.customers.map(customer => 
+      customer.id === this.selectedCustomer?.id 
+        ? { ...this.formData, id: this.selectedCustomer.id }
+        : customer
+    );
+    
+    this.showMessage('Customer updated successfully', 'success');
+    this.resetForm();
   }
 
   resetForm(): void {
