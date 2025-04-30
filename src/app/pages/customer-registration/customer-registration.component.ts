@@ -3,13 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BackButtonComponent } from "../../components/ui/back-button/back-button.component";
-
-interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  birthdate: string;
-}
+import { Customer } from '../../core/services/customer.service';
 
 interface Message {
   text: string;
@@ -27,7 +21,6 @@ export class CustomerRegistrationComponent implements OnInit {
   activeTab: 'new' | 'update' = 'new';
   customers: Customer[] = [];
   selectedCustomer: Customer | null = null;
-  // Declare as propriedades aqui, fora do constructor
   maxDate: string = '';
   minDate: string = '';
 
@@ -35,7 +28,8 @@ export class CustomerRegistrationComponent implements OnInit {
     id: '',
     name: '',
     email: '',
-    birthdate: '',
+    birthday: '',
+    cpf: '',
   };
 
   message: Message = {
@@ -54,7 +48,6 @@ export class CustomerRegistrationComponent implements OnInit {
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
 
-    // Data mínima (exemplo: 100 anos atrás)
     const minDate = new Date();
     minDate.setFullYear(minDate.getFullYear() - 100);
     this.minDate = minDate.toISOString().split('T')[0];
@@ -65,7 +58,6 @@ export class CustomerRegistrationComponent implements OnInit {
   }
 
   loadCustomers(): void {
-    // Aqui você pode inicializar com dados mockados se quiser
     this.customers = [];
   }
 
@@ -79,7 +71,7 @@ export class CustomerRegistrationComponent implements OnInit {
     } else {
       this.formData = {
         ...this.formData,
-        birthdate: event,
+        birthday: event,
       };
     }
   }
@@ -123,7 +115,8 @@ export class CustomerRegistrationComponent implements OnInit {
     if (
       !this.formData.name ||
       !this.formData.email ||
-      !this.formData.birthdate
+      !this.formData.birthday ||
+      !this.formData.cpf
     ) {
       this.showMessage('All fields are required', 'error');
       return false;
@@ -176,7 +169,8 @@ export class CustomerRegistrationComponent implements OnInit {
       id: '',
       name: '',
       email: '',
-      birthdate: '',
+      birthday: '',
+      cpf: '',
     };
     this.selectedCustomer = null;
   }
