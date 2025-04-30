@@ -1,13 +1,68 @@
 {
-    "customers": [
-      { "id": 1, "name": "Alice Johnson", "email": "alice@gmail.com", "birthday": "1990-01-01" },
-      { "id": 2, "name": "Bob Smith",  "email": "bod@gmail.com", "birthday": "2000-01-01" },
-      { "id": 3, "name": "Carlos Oliveira",  "email": "carlos@gmail.com", "birthday": "1998-01-01"  }
-    ],
-    "accounts": [
-      { "id": 1, "type": "Savings" },
-      { "id": 2, "type": "Checking" },
-      { "id": 3, "type": "Business" }
-    ]
-  }
-  
+  "customers": [
+    {
+      "id": "C00001",
+      "name": "Alice Johnson",
+      "email": "alice@gmail.com",
+      "birthday": "1990-01-01"
+    },
+    {
+      "id": "C00002",
+      "name": "Bob Smith",
+      "email": "bod@gmail.com",
+      "birthday": "2000-01-01"
+    },
+    {
+      "id": "C00003",
+      "name": "Carlos Oliveira",
+      "email": "carlos@gmail.com",
+      "birthday": "1998-01-01"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "A0001",
+      "type": "Savings",
+      "customerId": "C00001",
+      "balance": 3200
+    },
+    {
+      "id": "A0002",
+      "type": "Checking",
+      "customerId": "C00001",
+      "balance": 1200
+    },
+    {
+      "id": "A0003",
+      "type": "Business",
+      "customerId": "C00002",
+      "balance": 5000
+    }
+  ],
+  "transactions": [
+    {
+      "id": "T0001",
+      "customerId": "C00001",
+      "date": "2025-04-20",
+      "type": "credit",
+      "amount": 1500,
+      "description": "Salary"
+    },
+    {
+      "id": "T0002",
+      "customerId": "C00001",
+      "date": "2025-04-22",
+      "type": "debit",
+      "amount": 300,
+      "description": "Grocery Shopping"
+    },
+    {
+      "id": "T0003",
+      "customerId": "C00002",
+      "date": "2025-04-21",
+      "type": "debit",
+      "amount": 100,
+      "description": "Subscription Service"
+    }
+  ]
+}
