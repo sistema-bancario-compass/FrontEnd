@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { Customer, CustomerService } from '../../core/services/customer.service';
 import { Account, AccountService } from '../../core/services/account.service';
 import { Transaction, TransactionService } from '../../core/services/transactions.service';
+import { BackButtonComponent } from '../../components/ui/back-button/back-button.component';
 
 @Component({
   selector: 'app-customer-information',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BackButtonComponent],
   templateUrl: './customer-information.component.html',
   styleUrls: ['./customer-information.component.scss']
 })

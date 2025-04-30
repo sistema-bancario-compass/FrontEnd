@@ -1,34 +1,86 @@
+
+<app-back-button></app-back-button>
+
 <div class="account-management">
+<section class="account-management">
+
   <div class="account-header">
     <h1>Account Management</h1>
     <p>Create accounts, make deposits and withdrawals</p>
   </div>
 
-  <div class="tabs">
-    <button
-      [ngClass]="{ active: selectedTab === 'create' }"
-      (click)="selectTab('create')"
-    >
-      <svg>...</svg> Create Account
-    </button>
-    <button
-      [ngClass]="{ active: selectedTab === 'deposit' }"
-      (click)="selectTab('deposit')"
-    >
-      <svg>...</svg> Deposit
-    </button>
-    <button
-      [ngClass]="{ active: selectedTab === 'withdraw' }"
-      (click)="selectTab('withdraw')"
-    >
-      <svg>...</svg> Withdraw
+  <div class="tabs-wrapper">
+    <div class="tabs">
+      <button
+        type="button"
+        [ngClass]="{ active: selectedTab === 'create' }"
+        (click)="selectTab('create')"
+      >
+        <span>Create Account</span>
+      </button>
+
+      <button
+        type="button"
+        [ngClass]="{ active: selectedTab === 'deposit' }"
+        (click)="selectTab('deposit')"
+      >
+        <span>Deposit</span>
+      </button>
+
+      <button
+        type="button"
+        [ngClass]="{ active: selectedTab === 'withdraw' }"
+        (click)="selectTab('withdraw')"
+      >
+        <span>Withdraw</span>
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="selectedTab === 'create'">
+    <app-select-primary
+      label="Select Customer"
+      name="Customers"
+      type="text"
+      placeholder="--Customers--"
+    ></app-select-primary>
+
+    <app-select-primary
+      label="Account type"
+      name="Customers"
+      type="text"
+      placeholder="Checking"
+    ></app-select-primary>
+  </ng-container>
+
+  <ng-container *ngIf="selectedTab === 'deposit' || selectedTab === 'withdraw'">
+    <app-select-primary
+      label="Select Customer"
+      name="Customers"
+      type="text"
+      placeholder="--Customers--"
+    ></app-select-primary>
+
+    <app-select-primary
+      label="Select Account"
+      name="Account"
+      type="text"
+      placeholder="--Select an account--"
+    ></app-select-primary>
+
+    <div class="form-section">
+      <app-input-primary
+        label="Amount"
+        name="AmountNumber"
+        type="number"
+        placeholder="$."
+      ></app-input-primary>
+    </div>
+  </ng-container>
+
+  <div class="submit-section">
+    <button class="action-button" type="button" (click)="onSubmit()">
+      {{ getActionButtonText() }}
     </button>
   </div>
-  <app-input-primary
-    label="Amount"
-    name="AmountNumber"
-    type="text"
-  ></app-input-primary>
-
-  <button class="action-button">Create Account</button>
-</div>
+</section>

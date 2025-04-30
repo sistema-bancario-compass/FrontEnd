@@ -3,10 +3,11 @@ import { SelectPrimaryComponent } from '../../components/ui/select-primary/selec
 import { Customer, CustomerService } from '../../core/services/customer.service';
 import { Account, AccountService } from '../../core/services/account.service';
 import { ButtonComponent } from "../../components/ui/button/button.component";
+import { BackButtonComponent } from '../../components/ui/back-button/back-button.component';
 
 @Component({
   selector: 'app-transaction-reports',
-  imports: [SelectPrimaryComponent, ButtonComponent],
+  imports: [SelectPrimaryComponent, ButtonComponent, BackButtonComponent],
   templateUrl: './transaction-reports.component.html',
   styleUrl: './transaction-reports.component.scss'
 })
