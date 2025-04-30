@@ -2,9 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Customer, CustomerService } from '../../core/services/customer.service';
+import {
+  Customer,
+  CustomerService,
+} from '../../core/services/customer.service';
 import { Account, AccountService } from '../../core/services/account.service';
-import { Transaction, TransactionService } from '../../core/services/transactions.service';
+import {
+  Transaction,
+  TransactionService,
+} from '../../core/services/transactions.service';
 import { BackButtonComponent } from '../../components/ui/back-button/back-button.component';
 
 @Component({
@@ -12,25 +18,29 @@ import { BackButtonComponent } from '../../components/ui/back-button/back-button
   standalone: true,
   imports: [CommonModule, FormsModule, BackButtonComponent],
   templateUrl: './customer-information.component.html',
-  styleUrls: ['./customer-information.component.scss']
+  styleUrls: ['./customer-information.component.scss'],
 })
 export class CustomerInformationComponent implements OnInit {
-  constructor(private router: Router, 
+  constructor(
+    private router: Router,
     private customerService: CustomerService,
     private accountService: AccountService,
-    private transactionService: TransactionService,) {}
+    private transactionService: TransactionService
+  ) {}
 
   customers: Customer[] = [];
   accounts: Account[] = [];
   transactions: Transaction[] = [];
-    
+
   selectedCustomer: Customer | null = null;
 
   ngOnInit(): void {
-  this.customerService.getAll().subscribe((data) => (this.customers = data));
-  this.accountService.getAll().subscribe((data) => (this.accounts = data));
-  this.transactionService.getAll().subscribe((data) => (this.transactions = data));
-    }
+    this.customerService.getAll().subscribe((data) => (this.customers = data));
+    this.accountService.getAll().subscribe((data) => (this.accounts = data));
+    this.transactionService
+      .getAll()
+      .subscribe((data) => (this.transactions = data));
+  }
 
   goBack() {
     this.router.navigate(['/']);
@@ -38,13 +48,13 @@ export class CustomerInformationComponent implements OnInit {
 
   get filteredAccounts(): Account[] {
     return this.selectedCustomer
-      ? this.accounts.filter(a => a.customerId === this.selectedCustomer!.id)
+      ? this.accounts.filter((a) => a.customerId === this.selectedCustomer!.id)
       : [];
   }
 
   get filteredTransactions(): Transaction[] {
     return this.selectedCustomer
-      ? this.transactions.filter(t => t.accountId === this.selectedCustomer!.id)
+      ? this.transactions.filter((t) => t.source === this.selectedCustomer!.id)
       : [];
   }
 }

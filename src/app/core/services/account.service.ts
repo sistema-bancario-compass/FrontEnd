@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environment/environment';
 
 export interface Account {
   id: string;
@@ -11,7 +12,7 @@ export interface Account {
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
-  private readonly baseUrl = 'http://localhost:3000/accounts';
+  private readonly baseUrl = environment.baseUrl + '/accounts';
 
   constructor(private http: HttpClient) {}
 

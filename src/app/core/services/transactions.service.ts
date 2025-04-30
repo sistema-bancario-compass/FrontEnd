@@ -2,19 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Account } from './account.service';
+import { environment } from '../../environment/environment';
 
 export interface Transaction {
-    id: string;
-    accountId: string;
-    date: string;
-    type: 'credit' | 'debit';
-    amount: number;
-    time: string;
-  }
+  id: string;
+  source: string;
+  date: string;
+  type: 'credit' | 'debit';
+  amount: number;
+  description: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
-  private readonly baseUrl = 'http://localhost:3000/transactions';
+  private readonly baseUrl = environment.baseUrl + '/transactions';
 
   constructor(private http: HttpClient) {}
 
