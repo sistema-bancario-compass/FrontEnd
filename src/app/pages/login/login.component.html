@@ -1,0 +1,39 @@
+<div class="login-container">
+    <div class="login-box">
+      <div class="form-box">
+        <h2>Login to Banking System</h2>
+        <p class="subtitle">Enter your credentials to access the system</p>
+  
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <label for="username">Username (Email)</label>
+          <input
+            id="username"
+            type="email"
+            formControlName="username"
+            placeholder="Enter your email"
+          />
+          <div class="error" *ngIf="username?.touched && username?.invalid">
+            <span *ngIf="username?.errors?.['required']">Email is required.</span>
+            <span *ngIf="username?.errors?.['email']">Invalid email format.</span>
+          </div>
+  
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+          <div class="error" *ngIf="password?.touched && password?.invalid">
+            <span>Password is required.</span>
+          </div>
+  
+          <button type="submit">Criar conta</button>
+
+        </form>
+  
+
+      </div>
+    </div>
+  </div>
+  

@@ -45,7 +45,7 @@ export class CustomerRegistrationComponent implements OnInit {
   constructor(private router: Router) {}
 
   goBack() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/main-menu']);
   }
 
   initializeDates(): void {
