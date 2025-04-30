@@ -6,11 +6,10 @@ import { Account } from './account.service';
 export interface Transaction {
     id: string;
     accountId: string;
-    customerId: string;
     date: string;
     type: 'credit' | 'debit';
     amount: number;
-    description: string;
+    time: string;
   }
 
 @Injectable({ providedIn: 'root' })

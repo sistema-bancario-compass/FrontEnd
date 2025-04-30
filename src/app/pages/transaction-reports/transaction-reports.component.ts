@@ -38,7 +38,7 @@ ngOnInit() {
 generateReport() {
   this.transactionService.getAll().subscribe(transactions => {
     this.transactions = transactions.filter(t => {
-      const matchesCustomer = !this.selectedCustomer || t.customerId === this.selectedCustomer;
+      const matchesCustomer = !this.selectedCustomer;
       const matchesAccount = !this.selectedAccount || t.accountId === this.selectedAccount;
       const matchesStartDate = !this.startDate || new Date(t.date) >= new Date(this.startDate);
       const matchesEndDate = !this.endDate || new Date(t.date) <= new Date(this.endDate);

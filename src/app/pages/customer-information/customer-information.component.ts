@@ -44,7 +44,7 @@ export class CustomerInformationComponent implements OnInit {
 
   get filteredTransactions(): Transaction[] {
     return this.selectedCustomer
-      ? this.transactions.filter(t => t.customerId === this.selectedCustomer!.id)
+      ? this.transactions.filter(t => t.accountId === this.selectedCustomer!.id)
       : [];
   }
 }

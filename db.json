@@ -43,6 +43,19 @@
     {
       "id": "T0001",
       "accountId": "A0001",
+      "date": "2025-04-20",
+      "type": "credit",
+      "amount": 1500,
+      "description": "Salary"
+    },    {
+      "id": "T0001",
+      "customerId": "C00001",
+      "date": "2025-04-20",
+      "type": "credit",
+      "amount": 1500,
+      "description": "Salary"
+    },    {
+      "id": "T0001",
       "customerId": "C00001",
       "date": "2025-04-20",
       "type": "credit",
@@ -51,7 +64,6 @@
     },    {
       "id": "T0001",
       "accountId": "A0001",
-      "customerId": "C00001",
       "date": "2025-04-20",
       "type": "credit",
       "amount": 1500,
@@ -59,23 +71,6 @@
     },    {
       "id": "T0001",
       "accountId": "A0001",
-      "customerId": "C00001",
-      "date": "2025-04-20",
-      "type": "credit",
-      "amount": 1500,
-      "description": "Salary"
-    },    {
-      "id": "T0001",
-      "accountId": "A0001",
-      "customerId": "C00001",
-      "date": "2025-04-20",
-      "type": "credit",
-      "amount": 1500,
-      "description": "Salary"
-    },    {
-      "id": "T0001",
-      "accountId": "A0001",
-      "customerId": "C00001",
       "date": "2025-04-20",
       "type": "credit",
       "amount": 1500,
@@ -84,7 +79,6 @@
     {
       "id": "T0002",
       "accountId": "A0002",
-      "customerId": "C00001",
       "date": "2025-04-22",
       "type": "debit",
       "amount": 300,
@@ -93,7 +87,6 @@
     {
       "id": "T0003",
       "accountId": "A0003",
-      "customerId": "C00002",
       "date": "2025-04-21",
       "type": "debit",
       "amount": 100,
