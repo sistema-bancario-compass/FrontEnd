@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ButtonComponent } from '../../components/ui/button/button.component';
 
 interface Customer {
   id: string;
@@ -20,7 +21,7 @@ interface Message {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './customer-registration.component.html',
-  styleUrls: ['./customer-registration.component.scss']
+  styleUrls: ['./customer-registration.component.scss'],
 })
 export class CustomerRegistrationComponent implements OnInit {
   activeTab: 'new' | 'update' = 'new';
@@ -29,17 +30,17 @@ export class CustomerRegistrationComponent implements OnInit {
   // Declare as propriedades aqui, fora do constructor
   maxDate: string = '';
   minDate: string = '';
-  
+
   formData: Customer = {
     id: '',
     name: '',
     email: '',
-    birthdate: ''
+    birthdate: '',
   };
 
   message: Message = {
     text: '',
-    type: 'success'
+    type: 'success',
   };
 
   constructor(private router: Router) {}
@@ -73,12 +74,12 @@ export class CustomerRegistrationComponent implements OnInit {
       const { name, value } = event.target as HTMLInputElement;
       this.formData = {
         ...this.formData,
-        [name]: value
+        [name]: value,
       };
     } else {
       this.formData = {
         ...this.formData,
-        birthdate: event
+        birthdate: event,
       };
     }
   }
@@ -86,7 +87,8 @@ export class CustomerRegistrationComponent implements OnInit {
   handleCustomerSelect(event: any): void {
     const selectedId = event.target.value;
     if (selectedId) {
-      this.selectedCustomer = this.customers.find(c => c.id === selectedId) || null;
+      this.selectedCustomer =
+        this.customers.find((c) => c.id === selectedId) || null;
       if (this.selectedCustomer) {
         this.formData = { ...this.selectedCustomer };
       }
@@ -98,7 +100,7 @@ export class CustomerRegistrationComponent implements OnInit {
 
   handleSubmit(event: Event): void {
     event.preventDefault();
-    
+
     if (!this.validateForm()) {
       return;
     }
@@ -110,12 +112,19 @@ export class CustomerRegistrationComponent implements OnInit {
         this.updateCustomer();
       }
     } catch (error) {
-      this.showMessage('An error occurred while processing your request.', 'error');
+      this.showMessage(
+        'An error occurred while processing your request.',
+        'error'
+      );
     }
   }
 
   validateForm(): boolean {
-    if (!this.formData.name || !this.formData.email || !this.formData.birthdate) {
+    if (
+      !this.formData.name ||
+      !this.formData.email ||
+      !this.formData.birthdate
+    ) {
       this.showMessage('All fields are required', 'error');
       return false;
     }
@@ -133,11 +142,14 @@ export class CustomerRegistrationComponent implements OnInit {
     const newId = `C${String(this.customers.length + 1).padStart(5, '0')}`;
     const newCustomer: Customer = {
       ...this.formData,
-      id: newId
+      id: newId,
     };
 
     this.customers.push(newCustomer);
-    this.showMessage(`Customer registered successfully with ID: ${newId}`, 'success');
+    this.showMessage(
+      `Customer registered successfully with ID: ${newId}`,
+      'success'
+    );
     this.resetForm();
   }
 
@@ -147,11 +159,13 @@ export class CustomerRegistrationComponent implements OnInit {
       return;
     }
 
-    const index = this.customers.findIndex(c => c.id === this.selectedCustomer?.id);
+    const index = this.customers.findIndex(
+      (c) => c.id === this.selectedCustomer?.id
+    );
     if (index !== -1) {
       this.customers[index] = {
         ...this.formData,
-        id: this.selectedCustomer.id
+        id: this.selectedCustomer.id,
       };
       this.showMessage('Customer updated successfully', 'success');
     }
@@ -162,7 +176,7 @@ export class CustomerRegistrationComponent implements OnInit {
       id: '',
       name: '',
       email: '',
-      birthdate: ''
+      birthdate: '',
     };
     this.selectedCustomer = null;
   }

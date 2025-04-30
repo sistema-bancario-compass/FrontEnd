@@ -3,167 +3,231 @@
     <div class="container">
       <button class="back-button" (click)="goBack()">← Back to Menu</button>
 
-
-  <div class="card">
-    <div class="card-header">
-      <h2 class="card-title">Customer Registration</h2>
-      <p class="card-description">Register new customers or update existing profiles</p>
-    </div>
-
-    <div class="card-content">
-      <div class="tabs">
-        <div class="tabs-list grid grid-cols-2">
-          <button (click)="setActiveTab('new')" [class.active]="activeTab === 'new'" class="flex items-center gap-2">
-              <svg class="user-plus-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="8.5" cy="7" r="4"></circle>
-                <line x1="20" y1="8" x2="20" y2="14"></line>
-                <line x1="23" y1="11" x2="17" y2="11"></line>
-              </svg>
-              <span>New Customer</span>
-            </button>
-            
-          <button (click)="setActiveTab('update')" [class.active]="activeTab === 'update'" class="flex items-center gap-2">
-              <svg class="refresh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
-                <path d="M21 3v5h-5"/>
-              </svg>
-              <span class="align-middle">Update Customer</span>
-            </button>            
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Customer Registration</h2>
+          <p class="card-description">
+            Register new customers or update existing profiles
+          </p>
         </div>
 
-        <!-- New Customer Form -->
-        <div *ngIf="activeTab === 'new'" class="space-y-4 mt-4">
-          <form (ngSubmit)="handleSubmit($event)" class="space-y-4">
-            <div class="space-y-2">
-              <label for="name">Full Name</label>
-              <input
-                id="name"
-                name="name"
-                [(ngModel)]="formData.name"
-                (ngModelChange)="handleInputChange($event)"
-                placeholder="Enter customer's full name"
-                class="w-full p-2 border rounded-md"
+        <div class="card-content">
+          <div class="tabs">
+            <div class="tabs-list grid grid-cols-2">
+              <button
+                (click)="setActiveTab('new')"
+                [class.active]="activeTab === 'new'"
+                class="flex items-center gap-2"
               >
-            </div>
-
-            <div class="space-y-2">
-              <label for="email">Email Address</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                [(ngModel)]="formData.email"
-                (ngModelChange)="handleInputChange($event)"
-                placeholder="Enter customer's email address"
-                class="w-full p-2 border rounded-md"
-              >
-            </div>
-
-            <div class="space-y-2">
-              <label for="birthdate">Birth Date</label>
-              <div class="custom-date-input">
-                <input
-                  type="date"
-                  id="birthdate"
-                  name="birthdate"
-                  [(ngModel)]="formData.birthdate"
-                  (ngModelChange)="handleInputChange($event)"
-                  [max]="maxDate"
-                  [min]="minDate"
+                <svg
+                  class="user-plus-icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 >
-              </div>
-            </div>
-            
-            
-            
-            
-
-            <button type="submit" class="w-full flex items-center gap-2 justify-center bg-primary text-white p-2 rounded-md">
-              <svg xmlns="http://www.w3.org/2000/svg" class="save-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="2" width="12" height="12" rx="1"/>
-                  <rect x="4" y="8" width="8" height="4"/>
-                  <rect x="10" y="3" width="2" height="3"/>
-              </svg>
-              Register Customer
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="8.5" cy="7" r="4"></circle>
+                  <line x1="20" y1="8" x2="20" y2="14"></line>
+                  <line x1="23" y1="11" x2="17" y2="11"></line>
+                </svg>
+                <span>New Customer</span>
               </button>
-            
-          </form>
-        </div>
 
-        <!-- Update Customer Form -->
-        <div *ngIf="activeTab === 'update'" class="space-y-4 mt-4">
-          <div class="space-y-2">
-            <label for="customer-select">Select Customer</label>
-            <select
-              id="customer-select"
-              class="w-full p-2 border rounded-md"
-              (change)="handleCustomerSelect($event)"
-              [value]="selectedCustomer?.id || ''"
-            >
-              <option value="">-- Select a customer --</option>
-              <option *ngFor="let customer of customers" [value]="customer.id">
-                {{customer.id}} - {{customer.name}}
-              </option>
-            </select>
+              <button
+                (click)="setActiveTab('update')"
+                [class.active]="activeTab === 'update'"
+                class="flex items-center gap-2"
+              >
+                <svg
+                  class="refresh-icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+                  <path d="M21 3v5h-5" />
+                </svg>
+                <span class="align-middle">Update Customer</span>
+              </button>
+            </div>
+
+            <!-- New Customer Form -->
+            <div *ngIf="activeTab === 'new'" class="space-y-4 mt-4">
+              <form (ngSubmit)="handleSubmit($event)" class="space-y-4">
+                <div class="space-y-2">
+                  <label for="name">Full Name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    [(ngModel)]="formData.name"
+                    (ngModelChange)="handleInputChange($event)"
+                    placeholder="Enter customer's full name"
+                    class="w-full p-2 border rounded-md"
+                  />
+                </div>
+
+                <div class="space-y-2">
+                  <label for="email">Email Address</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    [(ngModel)]="formData.email"
+                    (ngModelChange)="handleInputChange($event)"
+                    placeholder="Enter customer's email address"
+                    class="w-full p-2 border rounded-md"
+                  />
+                </div>
+
+                <div class="space-y-2">
+                  <label for="birthdate">Birth Date</label>
+                  <div class="custom-date-input">
+                    <input
+                      type="date"
+                      id="birthdate"
+                      name="birthdate"
+                      [(ngModel)]="formData.birthdate"
+                      (ngModelChange)="handleInputChange($event)"
+                      [max]="maxDate"
+                      [min]="minDate"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full flex items-center gap-2 justify-center bg-primary text-white p-2 rounded-md"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="save-icon"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="2" y="2" width="12" height="12" rx="1" />
+                    <rect x="4" y="8" width="8" height="4" />
+                    <rect x="10" y="3" width="2" height="3" />
+                  </svg>
+                  Register Customer
+                </button>
+              </form>
+            </div>
+
+            <!-- Update Customer Form -->
+            <div *ngIf="activeTab === 'update'" class="space-y-4 mt-4">
+              <div class="space-y-2">
+                <label for="customer-select">Select Customer</label>
+                <select
+                  id="customer-select"
+                  class="w-full p-2 border rounded-md"
+                  (change)="handleCustomerSelect($event)"
+                  [value]="selectedCustomer?.id || ''"
+                >
+                  <option value="">-- Select a customer --</option>
+                  <option
+                    *ngFor="let customer of customers"
+                    [value]="customer.id"
+                  >
+                    {{ customer.id }} - {{ customer.name }}
+                  </option>
+                </select>
+              </div>
+
+              <form
+                *ngIf="selectedCustomer"
+                (ngSubmit)="handleSubmit($event)"
+                class="space-y-4"
+              >
+                <div class="space-y-2">
+                  <label for="update-name">Full Name</label>
+                  <input
+                    id="update-name"
+                    name="name"
+                    [(ngModel)]="formData.name"
+                    (ngModelChange)="handleInputChange($event)"
+                    placeholder="Enter customer's full name"
+                    class="w-full p-2 border rounded-md"
+                  />
+                </div>
+
+                <div class="space-y-2">
+                  <label for="update-email">Email Address</label>
+                  <input
+                    id="update-email"
+                    name="email"
+                    type="email"
+                    [(ngModel)]="formData.email"
+                    (ngModelChange)="handleInputChange($event)"
+                    placeholder="Enter customer's email address"
+                    class="w-full p-2 border rounded-md"
+                  />
+                </div>
+
+                <div class="space-y-2">
+                  <label for="update-birthdate">Birth Date (YYYY-MM-DD)</label>
+                  <input
+                    id="update-birthdate"
+                    name="birthdate"
+                    [(ngModel)]="formData.birthdate"
+                    (ngModelChange)="handleInputChange($event)"
+                    placeholder="YYYY-MM-DD"
+                    class="w-full p-2 border rounded-md"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full flex items-center gap-2 justify-center bg-primary text-white p-2 rounded-md"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+                    />
+                    <polyline points="17 21 17 13 7 13 7 21" />
+                    <polyline points="7 3 7 8 15 8" />
+                  </svg>
+                  Update Customer
+                </button>
+              </form>
+            </div>
           </div>
 
-          <form *ngIf="selectedCustomer" (ngSubmit)="handleSubmit($event)" class="space-y-4">
-            <div class="space-y-2">
-              <label for="update-name">Full Name</label>
-              <input
-                id="update-name"
-                name="name"
-                [(ngModel)]="formData.name"
-                (ngModelChange)="handleInputChange($event)"
-                placeholder="Enter customer's full name"
-                class="w-full p-2 border rounded-md"
-              >
-            </div>
-
-            <div class="space-y-2">
-              <label for="update-email">Email Address</label>
-              <input
-                id="update-email"
-                name="email"
-                type="email"
-                [(ngModel)]="formData.email"
-                (ngModelChange)="handleInputChange($event)"
-                placeholder="Enter customer's email address"
-                class="w-full p-2 border rounded-md"
-              >
-            </div>
-
-            <div class="space-y-2">
-              <label for="update-birthdate">Birth Date (YYYY-MM-DD)</label>
-              <input
-                id="update-birthdate"
-                name="birthdate"
-                [(ngModel)]="formData.birthdate"
-                (ngModelChange)="handleInputChange($event)"
-                placeholder="YYYY-MM-DD"
-                class="w-full p-2 border rounded-md"
-              >
-            </div>
-
-            <button type="submit" class="w-full flex items-center gap-2 justify-center bg-primary text-white p-2 rounded-md">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                <polyline points="17 21 17 13 7 13 7 21"/>
-                <polyline points="7 3 7 8 15 8"/>
-              </svg>
-              Update Customer
-            </button>
-            
-          </form>
+          <!-- Message Display -->
+          <div
+            *ngIf="message.text"
+            [class]="
+              message.type === 'error'
+                ? 'bg-red-100 text-red-800'
+                : 'bg-green-100 text-green-800'
+            "
+            class="mt-4 p-3 rounded-md"
+          >
+            {{ message.text }}
+          </div>
         </div>
-      </div>
-
-      <!-- Message Display -->
-      <div *ngIf="message.text" 
-           [class]="message.type === 'error' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'"
-           class="mt-4 p-3 rounded-md">
-        {{message.text}}
       </div>
     </div>
   </div>
