@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BackButtonComponent } from "../../components/ui/back-button/back-button.component";
-import { Customer } from '../../core/services/customer.service';
+import { BackButtonComponent } from '../../components/ui/back-button/back-button.component';
+import { Customer, CustomerService } from '../../core/services/customer.service';
 
 interface Message {
   text: string;
@@ -37,14 +37,16 @@ export class CustomerRegistrationComponent implements OnInit {
     type: 'success',
   };
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private customerService: CustomerService
+  ) {}
 
   goBack() {
     this.router.navigate(['/main-menu']);
   }
 
   initializeDates(): void {
-    // Data máxima é hoje
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
 
@@ -54,11 +56,15 @@ export class CustomerRegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initializeDates();
     this.loadCustomers();
   }
 
   loadCustomers(): void {
-    this.customers = [];
+    this.customerService.getAll().subscribe({
+      next: (customers) => this.customers = customers,
+      error: () => this.showMessage('Failed to load customers', 'error')
+    });
   }
 
   handleInputChange(event: any): void {
@@ -79,8 +85,7 @@ export class CustomerRegistrationComponent implements OnInit {
   handleCustomerSelect(event: any): void {
     const selectedId = event.target.value;
     if (selectedId) {
-      this.selectedCustomer =
-        this.customers.find((c) => c.id === selectedId) || null;
+      this.selectedCustomer = this.customers.find((c) => c.id === selectedId) || null;
       if (this.selectedCustomer) {
         this.formData = { ...this.selectedCustomer };
       }
@@ -92,32 +97,19 @@ export class CustomerRegistrationComponent implements OnInit {
 
   handleSubmit(event: Event): void {
     event.preventDefault();
-
     if (!this.validateForm()) {
       return;
     }
 
-    try {
-      if (this.activeTab === 'new') {
-        this.addCustomer();
-      } else {
-        this.updateCustomer();
-      }
-    } catch (error) {
-      this.showMessage(
-        'An error occurred while processing your request.',
-        'error'
-      );
+    if (this.activeTab === 'new') {
+      this.addCustomer();
+    } else {
+      this.updateCustomer();
     }
   }
 
   validateForm(): boolean {
-    if (
-      !this.formData.name ||
-      !this.formData.email ||
-      !this.formData.birthday ||
-      !this.formData.cpf
-    ) {
+    if (!this.formData.name || !this.formData.email || !this.formData.birthday || !this.formData.cpf) {
       this.showMessage('All fields are required', 'error');
       return false;
     }
@@ -132,18 +124,16 @@ export class CustomerRegistrationComponent implements OnInit {
   }
 
   addCustomer(): void {
-    const newId = `C${String(this.customers.length + 1).padStart(5, '0')}`;
-    const newCustomer: Customer = {
-      ...this.formData,
-      id: newId,
-    };
-
-    this.customers.push(newCustomer);
-    this.showMessage(
-      `Customer registered successfully with ID: ${newId}`,
-      'success'
-    );
-    this.resetForm();
+    this.customerService.create(this.formData).subscribe({
+      next: (createdCustomer) => {
+        this.customers.push(createdCustomer);
+        this.showMessage(`Customer registered successfully with ID: ${createdCustomer.id}`, 'success');
+        this.resetForm();
+      },
+      error: () => {
+        this.showMessage('Failed to register customer.', 'error');
+      }
+    });
   }
 
   updateCustomer(): void {
@@ -152,9 +142,7 @@ export class CustomerRegistrationComponent implements OnInit {
       return;
     }
 
-    const index = this.customers.findIndex(
-      (c) => c.id === this.selectedCustomer?.id
-    );
+    const index = this.customers.findIndex((c) => c.id === this.selectedCustomer?.id);
     if (index !== -1) {
       this.customers[index] = {
         ...this.formData,
