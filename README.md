@@ -1,59 +1,101 @@
-git commit -m "first commit"git commit -m "first commit"# FrontEnd
+💻 Banking System Frontend (Angular 19)
+Este é o frontend da aplicação Banking System, desenvolvido em Angular 19 para oferecer uma interface moderna e responsiva aos usuários do sistema bancário refatorado.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+📦 Tecnologias e Ferramentas
+Angular 19
 
-## Development server
+TypeScript
 
-To start a local development server, run:
+SCSS
 
-```bash
+Angular CLI
+
+JSON Server (para simulação de API local)
+
+VS Code (recomendado)
+
+📁 Estrutura do Projeto
+bash
+Copiar
+Editar
+frontend/
+├── src/
+│   ├── app/
+│   │   ├── components/           # Componentes reutilizáveis
+│   │   │   ├── menu/
+│   │   │   └── ui/               # Botões, inputs, selects etc.
+│   │   ├── core/services/        # Serviços para comunicação com o backend
+│   │   ├── environment/          # Variáveis de ambiente
+│   │   ├── pages/                # Telas principais do sistema
+│   │   ├── app.component.*       # Componente raiz
+│   │   ├── app.routes.ts         # Definições de rotas
+│   │   └── app.config.ts         # Configuração da aplicação
+│   ├── index.html
+│   ├── main.ts
+│   └── styles.scss
+├── public/                       # Arquivos estáticos (favicon, logo)
+├── angular.json                  # Configuração do Angular
+├── db.json                       # Base de dados fake para testes (json-server)
+├── package.json                  # Dependências e scripts
+└── README.md
+🚀 Como Executar
+Pré-requisitos
+Node.js 18+
+
+Angular CLI 16+
+
+(Opcional) JSON Server para simular uma API local
+
+Passos
+bash
+Copiar
+Editar
+# Clone o repositório
+git clone https://github.com/seu-usuario/frontend.git
+cd frontend
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
 ng serve
-```
+A aplicação estará disponível em:
+📍 http://localhost:4200
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Simular API com JSON Server
+bash
+Copiar
+Editar
+npx json-server --watch db.json
+A API estará disponível em:
+📍 http://localhost:3000
 
-## Code scaffolding
+🌐 Principais Páginas
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Página	Caminho	Descrição
+Login	/login	Tela de autenticação
+Menu Principal	/menu	Tela inicial pós-login
+Cadastro de Cliente	/cadastro-cliente	Formulário de novo cliente
+Consulta de Cliente	/informacoes-cliente	Visualização de dados do cliente
+Gerenciamento de Conta	/gerenciamento-conta	Operações bancárias
+Relatório de Transações	/relatorios-transacoes	Visualização de extrato
+🧩 Componentes Reutilizáveis
+button – Botão genérico
 
-```bash
-ng generate component component-name
-```
+input-primary – Input estilizado
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+select-primary – Select estilizado
 
-```bash
-ng generate --help
-```
+back-button – Botão de navegação
 
-## Building
+menu – Componente de navegação lateral
 
-To build the project run:
+🔗 Integração com Backend
+Os serviços (core/services/*.service.ts) estão configurados para se comunicar com a API REST implementada no projeto backend. Atualize as URLs no environment.ts conforme necessário.
 
-```bash
-ng build
-```
+👥 Contribuidores
+Projeto desenvolvido durante o Hackathon UOL Compass.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+📄 Licença
+Este projeto está sob a licença MIT.
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
