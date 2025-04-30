@@ -83,23 +83,13 @@ A API estará disponível em:
 ## 🌐 Principais Páginas
 
 | Página                    | Caminho                   | Descrição                             |
-|---------------------------|----------------------------|-----------------------------------------|
-| Login                     | `/login`                  | Tela de autenticação                   |
-| Menu Principal            | `/menu`                   | Tela inicial pós-login                 |
-| Cadastro de Cliente       | `/cadastro-cliente`       | Formulário de registro de cliente      |
-| Consulta de Cliente       | `/informacoes-cliente`    | Visualização de dados do cliente       |
-| Gerenciamento de Conta    | `/gerenciamento-conta`    | Ações sobre contas bancárias           |
-| Relatório de Transações   | `/relatorios-transacoes`  | Histórico de transações bancárias      |
-
----
-
-## 🧩 Componentes Reutilizáveis
-
-- button – Botão genérico
-- input-primary – Campo de entrada estilizado
-- select-primary – Menu de seleção
-- back-button – Botão de navegação
-- menu – Componente de navegação lateral
+|---------------------------|---------------------------|-----------------------------------------|
+| Login                     | `/`                       | Tela de autenticação                   |
+| Menu Principal            | `/main-menu`              | Tela inicial pós-login                 |
+| Customer Registration     | `/customer-registration`  | Formulário de registro de cliente      |
+| Customer Information      | `/customer-information`   | Visualização de dados do cliente       |
+| Account Management        | `/account-management`     | Ações sobre contas bancárias           |
+| Transaction-reports       | `/transaction-reports`    | Histórico de transações bancárias      |
 
 ---
 
