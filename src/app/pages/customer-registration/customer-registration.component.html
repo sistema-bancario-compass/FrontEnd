@@ -60,7 +60,6 @@
               </button>
             </div>
 
-            <!-- New Customer Form -->
             <div *ngIf="activeTab === 'new'" class="space-y-4 mt-4">
               <form (ngSubmit)="handleSubmit($event)" class="space-y-4">
                 <div class="space-y-2">
@@ -89,18 +88,14 @@
                 </div>
 
                 <div class="space-y-2">
-                  <label for="birthdate">Birth Date</label>
-                  <div class="custom-date-input">
-                    <input
-                      type="date"
-                      id="birthdate"
-                      name="birthdate"
-                      [(ngModel)]="formData.birthdate"
-                      (ngModelChange)="handleInputChange($event)"
-                      [max]="maxDate"
-                      [min]="minDate"
-                    />
-                  </div>
+                  <label for="cpf">CPF</label>
+                  <input
+                    type="text"
+                    id="cpf"
+                    name="cpf"
+                    [(ngModel)]="formData.cpf"
+                    (ngModelChange)="handleInputChange($event)"
+                  />
                 </div>
 
                 <button
@@ -126,7 +121,6 @@
               </form>
             </div>
 
-            <!-- Update Customer Form -->
             <div *ngIf="activeTab === 'update'" class="space-y-4 mt-4">
               <div class="space-y-2">
                 <label for="customer-select">Select Customer</label>
@@ -181,7 +175,7 @@
                   <input
                     id="update-birthdate"
                     name="birthdate"
-                    [(ngModel)]="formData.birthdate"
+                    [(ngModel)]="formData.birthday"
                     (ngModelChange)="handleInputChange($event)"
                     placeholder="YYYY-MM-DD"
                     class="w-full p-2 border rounded-md"
@@ -214,7 +208,6 @@
             </div>
           </div>
 
-          <!-- Message Display -->
           <div
             *ngIf="message.text"
             [class]="
