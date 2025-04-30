@@ -10,6 +10,17 @@ interface Customer {
   birthdate: string;
 }
 
+interface Transaction {
+  id: string;
+  customerId: string;
+  customerName: string;
+  customerEmail: string;
+  date: string;
+  type: 'credit' | 'debit';
+  amount: number;
+  description: string;
+}
+
 interface Message {
   text: string;
   type: 'error' | 'success';
@@ -26,7 +37,6 @@ export class CustomerRegistrationComponent implements OnInit {
   activeTab: 'new' | 'update' = 'new';
   customers: Customer[] = [];
   selectedCustomer: Customer | null = null;
-  // Declare as propriedades aqui, fora do constructor
   maxDate: string = '';
   minDate: string = '';
   
@@ -42,6 +52,111 @@ export class CustomerRegistrationComponent implements OnInit {
     type: 'success'
   };
 
+  transactions: Transaction[] = [
+    {
+      id: 'T00001',
+      customerId: 'C00001',
+      customerName: 'John Doe',
+      customerEmail: 'john@email.com',
+      date: '2025-04-20',
+      type: 'credit',
+      amount: 1500,
+      description: 'Salary'
+    },
+    {
+      id: 'T00002',
+      customerId: 'C00001',
+      customerName: 'John Doe',
+      customerEmail: 'john@email.com',
+      date: '2025-04-22',
+      type: 'debit',
+      amount: 300,
+      description: 'Grocery Shopping'
+    },
+    {
+      id: 'T00003',
+      customerId: 'C00002',
+      customerName: 'Maria Silva',
+      customerEmail: 'maria@email.com',
+      date: '2025-04-21',
+      type: 'credit',
+      amount: 2000,
+      description: 'Freelance Payment'
+    },
+    {
+      id: 'T00004',
+      customerId: 'C00002',
+      customerName: 'Maria Silva',
+      customerEmail: 'maria@email.com',
+      date: '2025-04-23',
+      type: 'debit',
+      amount: 150.50,
+      description: 'Internet Bill'
+    },
+    {
+      id: 'T00005',
+      customerId: 'C00003',
+      customerName: 'Carlos Santos',
+      customerEmail: 'carlos@email.com',
+      date: '2025-04-20',
+      type: 'credit',
+      amount: 3000,
+      description: 'Investment Return'
+    },
+    {
+      id: 'T00006',
+      customerId: 'C00003',
+      customerName: 'Carlos Santos',
+      customerEmail: 'carlos@email.com',
+      date: '2025-04-24',
+      type: 'debit',
+      amount: 800,
+      description: 'Rent Payment'
+    },
+    {
+      id: 'T00007',
+      customerId: 'C00004',
+      customerName: 'Ana Oliveira',
+      customerEmail: 'ana@email.com',
+      date: '2025-04-21',
+      type: 'credit',
+      amount: 2500,
+      description: 'Monthly Salary'
+    },
+    {
+      id: 'T00008',
+      customerId: 'C00004',
+      customerName: 'Ana Oliveira',
+      customerEmail: 'ana@email.com',
+      date: '2025-04-25',
+      type: 'debit',
+      amount: 450,
+      description: 'Utility Bills'
+    }
+  ];
+
+  get filteredTransactions() {
+    return this.selectedCustomer
+      ? this.transactions.filter((t: Transaction) => t.customerId === this.selectedCustomer?.id)
+      : [];
+  }
+
+  get totalCredits() {
+    return this.filteredTransactions
+      .filter((t: Transaction) => t.type === 'credit')
+      .reduce((sum, t) => sum + t.amount, 0);
+  }
+
+  get totalDebits() {
+    return this.filteredTransactions
+      .filter((t: Transaction) => t.type === 'debit')
+      .reduce((sum, t) => sum + t.amount, 0);
+  }
+
+  get balance() {
+    return this.totalCredits - this.totalDebits;
+  }
+
   constructor(private router: Router) {}
 
   goBack() {
@@ -49,11 +164,9 @@ export class CustomerRegistrationComponent implements OnInit {
   }
 
   initializeDates(): void {
-    // Data máxima é hoje
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
 
-    // Data mínima (exemplo: 100 anos atrás)
     const minDate = new Date();
     minDate.setFullYear(minDate.getFullYear() - 100);
     this.minDate = minDate.toISOString().split('T')[0];
@@ -64,8 +177,23 @@ export class CustomerRegistrationComponent implements OnInit {
   }
 
   loadCustomers(): void {
-    // Aqui você pode inicializar com dados mockados se quiser
-    this.customers = [];
+    // Criando um Set para obter customers únicos das transactions
+    const uniqueCustomers = new Set(
+      this.transactions.map(t => JSON.stringify({
+        id: t.customerId,
+        name: t.customerName,
+        email: t.customerEmail
+      }))
+    );
+    this.customers = Array.from(uniqueCustomers).map(customer => {
+      const { id, name, email } = JSON.parse(customer);
+      return {
+        id,
+        name,
+        email,
+        birthdate: '' 
+      };
+    });
   }
 
   handleInputChange(event: any): void {
