@@ -89,6 +89,20 @@
                 </div>
 
                 <div class="space-y-2">
+                  <label for="birthdate">Birth Date</label>
+                  <div class="custom-date-input">
+                    <input
+                      type="date"
+                      id="birthdate"
+                      name="birthdate"
+                      [(ngModel)]="formData.birthday"
+                      (ngModelChange)="handleInputChange($event)"
+                      [max]="maxDate"
+                      [min]="minDate"
+                    />
+                  </div>
+                </div> mude para cpf com cpf sendo string
+                <div class="space-y-2">
                   <label for="cpf">CPF</label>
                   <input
                     type="text"
