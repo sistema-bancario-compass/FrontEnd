@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BackButtonComponent } from '../../components/ui/back-button/back-button.component';
 
 interface Customer {
   id: string;
@@ -18,7 +19,7 @@ interface Message {
 @Component({
   selector: 'app-customer-registration',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BackButtonComponent],
   templateUrl: './customer-registration.component.html',
   styleUrls: ['./customer-registration.component.scss'],
 })
