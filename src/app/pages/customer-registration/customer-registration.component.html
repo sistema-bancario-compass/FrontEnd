@@ -56,6 +56,9 @@
                     <input type="date" id="birthdate" name="birthdate" [(ngModel)]="formData.birthdate"
                       (ngModelChange)="handleInputChange($event)" [max]="maxDate" [min]="minDate">
                   </div>
+                  <div *ngIf="dateError" class="error-message text-red-600 text-sm mt-1">
+                    {{ dateError }}
+                  </div>
                 </div>
 
                 <button type="submit"
@@ -100,10 +103,21 @@
                 </div>
 
                 <div class="space-y-2">
-                  <label for="update-birthdate">Birth Date (YYYY-MM-DD)</label>
-                  <input id="update-birthdate" name="birthdate" [(ngModel)]="formData.birthdate"
-                    (ngModelChange)="handleInputChange($event)" placeholder="YYYY-MM-DD"
-                    class="w-full p-2 border rounded-md">
+                  <label for="update-birthdate">Birth Date</label>
+                  <div class="custom-date-input">
+                    <input 
+                      type="date" 
+                      id="update-birthdate" 
+                      name="birthdate" 
+                      [(ngModel)]="formData.birthdate"
+                      (ngModelChange)="handleInputChange($event)"
+                      [max]="maxDate" 
+                      [min]="minDate"
+                    >
+                  </div>
+                  <div *ngIf="dateError" class="error-message text-red-600 text-sm mt-1">
+                    {{ dateError }}
+                  </div>
                 </div>
 
                 <button type="submit"

@@ -35,10 +35,11 @@ interface Message {
 })
 export class CustomerRegistrationComponent implements OnInit {
   activeTab: 'new' | 'update' = 'new';
-  customers: Customer[] = [];
   selectedCustomer: Customer | null = null;
   maxDate: string = '';
   minDate: string = '';
+  dateError: string = '';
+  isValidDate: boolean = true;
   
   formData: Customer = {
     id: '',
@@ -52,14 +53,51 @@ export class CustomerRegistrationComponent implements OnInit {
     type: 'success'
   };
 
-  transactions: Transaction[] = [
-    // ... seus dados de transações existentes ...
+  customers: Customer[] = [
+    {
+      id: 'C00001',
+      name: 'John Doe',
+      email: 'john@email.com',
+      birthdate: '1990-01-15'
+    },
+    {
+      id: 'C00002',
+      name: 'Maria Silva',
+      email: 'maria@email.com',
+      birthdate: '1985-03-22'
+    },
+    {
+      id: 'C00003',
+      name: 'Carlos Santos',
+      email: 'carlos@email.com',
+      birthdate: '1992-07-10'
+    },
+    {
+      id: 'C00004',
+      name: 'Ana Oliveira',
+      email: 'ana@email.com',
+      birthdate: '1988-11-30'
+    },
+    {
+      id: 'C00005',
+      name: 'Pedro Alves',
+      email: 'pedro@email.com',
+      birthdate: '1995-05-20'
+    },
+    {
+      id: 'C00006',
+      name: 'Sofia Lima',
+      email: 'sofia@email.com',
+      birthdate: '1993-09-12'
+    }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.initializeDates();
+  }
 
-  goBack() {
-    this.router.navigate(['/']);
+  ngOnInit(): void {
+    this.loadCustomers();
   }
 
   initializeDates(): void {
@@ -71,56 +109,119 @@ export class CustomerRegistrationComponent implements OnInit {
     this.minDate = minDate.toISOString().split('T')[0];
   }
 
-  ngOnInit(): void {
-    this.loadCustomers();
-    this.initializeDates();
-  }
-
   loadCustomers(): void {
-    const uniqueCustomers = new Map();
-    
-    this.transactions.forEach(t => {
-      if (!uniqueCustomers.has(t.customerId)) {
-        uniqueCustomers.set(t.customerId, {
-          id: t.customerId,
-          name: t.customerName,
-          email: t.customerEmail,
-          birthdate: ''
-        });
+    try {
+      if (this.customers.length === 0) {
+        this.showMessage('No customers found', 'error');
       }
-    });
-    
-    this.customers = Array.from(uniqueCustomers.values());
-  }
-
-  handleInputChange(event: any): void {
-    const value = event?.target?.value ?? event;
-    const name = event?.target?.name;
-
-    if (name) {
-      this.formData = {
-        ...this.formData,
-        [name]: value
-      };
-    } else if (typeof event === 'string') {
-      // Assume it's a birthdate input
-      this.formData = {
-        ...this.formData,
-        birthdate: value
-      };
+    } catch (error) {
+      this.showMessage('Error loading customers', 'error');
     }
   }
 
-  handleCustomerSelect(event: any): void {
-    const selectedId = event.target.value;
-    if (selectedId) {
-      this.selectedCustomer = this.customers.find(c => c.id === selectedId) || null;
-      if (this.selectedCustomer) {
-        this.formData = { ...this.selectedCustomer };
+  handleInputChange(event: Event | string): void {
+    try {
+      if (event instanceof Event) {
+        const { name, value } = event.target as HTMLInputElement;
+        
+        if (name === 'birthdate') {
+          if (this.validateDate(value)) {
+            this.formData = {
+              ...this.formData,
+              [name]: value
+            };
+            this.dateError = '';
+            this.isValidDate = true;
+          }
+        } else {
+          this.formData = {
+            ...this.formData,
+            [name]: value
+          };
+        }
+      } else {
+        if (this.validateDate(event)) {
+          this.formData = {
+            ...this.formData,
+            birthdate: event
+          };
+          this.dateError = '';
+          this.isValidDate = true;
+        }
       }
-    } else {
-      this.selectedCustomer = null;
-      this.resetForm();
+    } catch (error) {
+      this.showMessage('Error updating form', 'error');
+    }
+  }
+
+  validateDate(dateStr: string): boolean {
+    try {
+      // Verifica se a data está no formato correto
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+        this.dateError = 'Invalid date format. Use YYYY-MM-DD';
+        this.isValidDate = false;
+        return false;
+      }
+
+      const date = new Date(dateStr);
+      const today = new Date();
+      const minDate = new Date();
+      minDate.setFullYear(minDate.getFullYear() - 100);
+
+      // Verifica se é uma data válida
+      if (isNaN(date.getTime())) {
+        this.dateError = 'Invalid date';
+        this.isValidDate = false;
+        return false;
+      }
+
+      // Verifica se a data está no futuro
+      if (date > today) {
+        this.dateError = 'Birth date cannot be in the future';
+        this.isValidDate = false;
+        return false;
+      }
+
+      // Verifica se a data é muito antiga (mais de 100 anos)
+      if (date < minDate) {
+        this.dateError = 'Birth date cannot be more than 100 years ago';
+        this.isValidDate = false;
+        return false;
+      }
+
+      // Verifica se o mês e dia são válidos
+      const [year, month, day] = dateStr.split('-').map(Number);
+      const inputDate = new Date(year, month - 1, day);
+      if (inputDate.getMonth() !== month - 1 || inputDate.getDate() !== day) {
+        this.dateError = 'Invalid date';
+        this.isValidDate = false;
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      this.dateError = 'Error validating date';
+      this.isValidDate = false;
+      return false;
+    }
+  }
+
+  handleCustomerSelect(event: Event): void {
+    try {
+      const target = event.target as HTMLSelectElement;
+      const selectedId = target.value;
+
+      if (selectedId) {
+        this.selectedCustomer = this.customers.find(c => c.id === selectedId) || null;
+        if (this.selectedCustomer) {
+          this.formData = { ...this.selectedCustomer };
+        }
+      } else {
+        this.selectedCustomer = null;
+        this.resetForm();
+      }
+    } catch (error) {
+      this.showMessage('Error selecting customer', 'error');
     }
   }
 
@@ -138,12 +239,12 @@ export class CustomerRegistrationComponent implements OnInit {
         this.updateCustomer();
       }
     } catch (error) {
-      this.showMessage('An error occurred while processing your request.', 'error');
+      this.showMessage('Error processing request', 'error');
     }
   }
 
   validateForm(): boolean {
-    if (!this.formData.name.trim() || !this.formData.email.trim() || !this.formData.birthdate) {
+    if (!this.formData.name?.trim() || !this.formData.email?.trim() || !this.formData.birthdate) {
       this.showMessage('All fields are required', 'error');
       return false;
     }
@@ -154,21 +255,22 @@ export class CustomerRegistrationComponent implements OnInit {
       return false;
     }
 
+    if (!this.isValidDate || this.dateError) {
+      this.showMessage(this.dateError || 'Invalid birth date', 'error');
+      return false;
+    }
+
     return true;
   }
 
   addCustomer(): void {
-    const lastId = this.customers.length > 0 
-      ? parseInt(this.customers[this.customers.length - 1].id.substring(1))
-      : 0;
-    
-    const newId = `C${String(lastId + 1).padStart(5, '0')}`;
+    const newId = `C${String(this.customers.length + 1).padStart(5, '0')}`;
     const newCustomer: Customer = {
       ...this.formData,
       id: newId
     };
 
-    this.customers = [...this.customers, newCustomer];
+    this.customers.push(newCustomer);
     this.showMessage(`Customer registered successfully with ID: ${newId}`, 'success');
     this.resetForm();
   }
@@ -179,14 +281,17 @@ export class CustomerRegistrationComponent implements OnInit {
       return;
     }
 
-    this.customers = this.customers.map(customer => 
-      customer.id === this.selectedCustomer?.id 
-        ? { ...this.formData, id: this.selectedCustomer.id }
-        : customer
-    );
-    
-    this.showMessage('Customer updated successfully', 'success');
-    this.resetForm();
+    const index = this.customers.findIndex(c => c.id === this.selectedCustomer?.id);
+    if (index !== -1) {
+      this.customers[index] = {
+        ...this.formData,
+        id: this.selectedCustomer.id
+      };
+      this.showMessage('Customer updated successfully', 'success');
+      this.resetForm();
+    } else {
+      this.showMessage('Customer not found', 'error');
+    }
   }
 
   resetForm(): void {
@@ -197,6 +302,8 @@ export class CustomerRegistrationComponent implements OnInit {
       birthdate: ''
     };
     this.selectedCustomer = null;
+    this.dateError = '';
+    this.isValidDate = true;
   }
 
   showMessage(text: string, type: 'error' | 'success'): void {
@@ -212,5 +319,9 @@ export class CustomerRegistrationComponent implements OnInit {
     this.activeTab = tab;
     this.resetForm();
     this.clearMessage();
+  }
+
+  goBack(): void {
+    this.router.navigate(['/']);
   }
 }
