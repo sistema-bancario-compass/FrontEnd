@@ -1,5 +1,5 @@
 import { Component, Input, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -8,4 +8,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
+  constructor(private router: Router) {}
+  goBack() {
+    this.router.navigate(['/']);
+  }
 }
